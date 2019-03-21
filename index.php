@@ -1,3 +1,4 @@
 <?php
-echo 'CS 205 Final Project';
+require_once('resources/templates/header');
+require_once('resources/templates/footer');
 ?>
