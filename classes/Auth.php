@@ -1,5 +1,6 @@
 <?php
-namespace BillBuddy;
+require_once(dirname(__DIR__ ) . '/vendor/autoload.php');
+
 use Auth0\SDK\Auth0;
 
 class Auth {
@@ -17,6 +18,10 @@ class Auth {
       'persist_access_token' => true,
       'persist_refresh_token' => true,
     ]);
+  }
+
+  public function handleLogin() {
+    $this->auth0->login();
   }
 
   public function getUserInfo() {

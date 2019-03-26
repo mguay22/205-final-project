@@ -1,6 +1,6 @@
 <?php
-require_once(__DIR__ . '/resources/templates/header.php');
-require_once(__DIR__ . '/resources/templates/footer.php');
+require_once(__DIR__ . '/templates/header.php');
+require_once(__DIR__ . '/templates/footer.php');
 ?>
 
-<a href="resources/templates/login.php">Sign In</a>
+<a href="templates/login.php">Sign In</a>
