@@ -12,7 +12,7 @@ class Auth {
       'domain' => 'billbuddy.auth0.com',
       'client_id' => 'OJk52cegiigbHQKllHkt4Ff692qJ54M8',
       'client_secret' => 'KrcUQRqz7JPAHr0igi5IDnivbUZgha83ForgmM6S-G12hdrKLxnP7H3nzHWjkIuV',
-      'redirect_uri' => 'http://mguay.w3.uvm.edu/205-final-project/dashboard.php',
+      'redirect_uri' => 'http://localhost:7888/205-final-project/dashboard.php',
       'audience' => 'https://billbuddy.auth0.com/userinfo',
       'scope' => 'openid profile',
       'persist_id_token' => true,
