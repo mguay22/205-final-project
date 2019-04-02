@@ -13,11 +13,6 @@
         <![endif]-->
 
         <link rel="stylesheet" href="css/main.css" type="text/css">
-        <script
-            src="https://code.jquery.com/jquery-3.3.1.min.js"
-            integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
-            crossorigin="anonymous">
-        </script>
 
         <?php
         // %^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -42,4 +37,3 @@
     include 'header.php';
     include 'nav.php';
     ?>
-    <script src="js/main.js"></script>
