@@ -13,43 +13,13 @@ $additionalInfo = "";
 $fileInfo = "";
 $billTypeEr = $amountEr = $dueDateEr =  "";
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    if (empty($_POST["radBill"])) {
-        $billTypeErr = "Bill type is required";
-    }else {
-        $billType = test_input($_POST["radBill"]);
-    }
-    
-    if (empty($_POST["txtAmount"])) {
-        $amountEr = "";
-    }else {
-        $amount = test_input($_POST["txtAmount"]);
-    }
-    
-    if (empty($_POST["txtDueDate"])) {
-        $dueDateEr = "Due Date is required";
-    }else {
-        $dueDate = test_input($_POST["txtDueDate"]);
-    }
-    
-    if (empty($_POST["txtAddInfo"])) {
-        $additionalInfo = "";
-    }else {
-        $additionalInfo = test_input($_POST["txtAddInfo"]);
-    }  
-}           
+/*if ($_SERVER["REQUEST_METHOD"] == "POST") {*/
 
-function test_input($data) {
-            $data = trim($data);
-            $data = stripslashes($data);
-            $data = htmlspecialchars($data);
-            return $data;
-}
 
 ?>
 <article id ="main">
     <h2>Enter Bill</h2>
-    <form id ="bill" action="" method="POST" enctype="multipart/form-data">
+    <form id ="bill" action="upload.php" method="POST" enctype="multipart/form-data">
         <fieldset class = "radio">
             <legend>Bill Type</legend>
             <p>
@@ -124,29 +94,5 @@ function test_input($data) {
                 <input class="button" id="btnSubmit" name="btnSubmit" tabindex="400" type="submit" value="Add" >
         </fieldset>
     </form>
-    
-    <?php
-         echo "<h2>Your given values are as:</h2>";
-         echo $billType;
-         echo "<br>";
-         
-         echo $amount;
-         echo "<br>";
-         
-         echo $dueDate;
-         echo "<br>";
-         
-         echo $additionalInfo;
-         echo "<br>";
-         
-         echo $_FILES['file']['name'];
-         echo "<br>";
-         echo $_FILES['file']['tmp_name'];
-         echo "<br>";
-         echo $_FILES['file']['size'];
-         echo "<br>";
-         echo $_FILES['file']['type'];
-         
-      ?>
 
 </article>
