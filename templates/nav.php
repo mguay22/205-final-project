@@ -9,36 +9,6 @@
             print ' class="activePage" ';
         }
         print '><a href="index.php">Home</a></li>';
-       
-        print '<li ';
-        if ($PATH_PARTS['filename'] == '') {
-            print ' class="activePage" ';
-        }
-        print '><a href="">Inactive</a></li>'; //Inactive placeholder links
-       
-        print '<li ';
-        if ($PATH_PARTS['filename'] == '') {
-            print ' class="activePage" ';
-        }
-        print '><a href="">Inactive</a></li>';
-        
-        print '<li ';
-        if ($PATH_PARTS['filename'] == '') {
-            print ' class="activePage" ';
-        }
-        print '><a href="">Inactive</a></li>';
-        
-        print '<li ';
-        if ($PATH_PARTS['filename'] == '') {
-            print ' class="activePage" ';
-        }
-        print '><a href="">Inactive</a></li>';
-        
-        print '<li ';
-        if ($PATH_PARTS['filename'] == '') {
-            print ' class="activePage" ';
-        }
-        print '><a href="">Inactive</a></li>';
 
         ?>
     </ol>
