@@ -3,3 +3,6 @@
 vendor
 pass.php
 nbproject/
+constants.php
+Database.php
+Connect-With-Database.php

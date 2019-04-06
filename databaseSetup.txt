@@ -1,0 +1,31 @@
+
+### IF YOU DONT ALREADY HAVE MYSQL SETUP THROUGH UVM WEBDB FOLLOW THESE STEPS
+
+1. Navigate to https://webdb.uvm.edu/account/
+2. Go to My Accounts & Databases (should send you an email with passwords, these should go in your own lib/pass.php.
+3. At bottom of page, create a new database (I named mine BillApp)
+4. On left nav, click Manage Databases online and sign into myPHPAdmin with credentials given from step above.
+5. Once in myPhpAdmin, click on your desired database on left.
+6. Click SQL at top of the screen, this is where you will enter SQL Statements.
+7. Copy and paste the following code snippets one at a time in this order, clicking GO in bottom right after each one.
+8. Make sure you edit your constants.php to have your own database names.
+
+
+=============== CREATE ADDRESS TABLE =====================================================
+
+CREATE TABLE JHCHILDS_BillApp.address (id INT NOT NULL AUTO_INCREMENT, houseNumber VARCHAR(50) NOT NULL, street VARCHAR(50) NOT NULL, unitNumber VARCHAR(10) NOT NULL, zip VARCHAR(10) NOT NULL, city VARCHAR(50) NOT NULL, state VARCHAR(50) NOT NULL, PRIMARY KEY(id)) ENGINE = InnoDB;
+
+==========================================================================================
+
+=============== CREATE BILL TABLE =====================================================
+
+CREATE TABLE JHCHILDS_BillApp.bill (id INT NOT NULL AUTO_INCREMENT, type ENUM('rent','water','electric','gas','wifi','other') NOT NULL, dueDate DATE NULL, addressId INT(100) NOT NULL, fileName VARCHAR(50) NULL, amount FLOAT NOT NULL, PRIMARY KEY(id), FOREIGN KEY(addressId) REFERENCES address(id)) ENGINE = InnoDB;
+
+==========================================================================================
+
+
+=============== CREATE USER TABLE ========================================================
+
+CREATE TABLE JHCHILDS_BillApp.user ( id INT NOT NULL AUTO_INCREMENT, token VARCHAR(100) NOT NULL, email VARCHAR(50) NOT NULL, fullName VARCHAR(50) NOT NULL, username VARCHAR(50) NOT NULL, password VARCHAR(50) NOT NULL, status ENUM('admin','standard') NOT NULL, addressId INT(100) NOT NULL, houseCode INT(100) NOT NULL, PRIMARY KEY(id), FOREIGN KEY(addressId) REFERENCES address(id)) ENGINE = InnoDB;
+
+==========================================================================================
