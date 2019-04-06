@@ -1,11 +1,12 @@
-const householdSelect = document.getElementById('newHousehold');
-const householdCodeInput = document.getElementById('householdCode');
+const form = document.getElementById("register");
 
-householdSelect.addEventListener('change', () => {
-    const householdSelectedOption = householdSelect.options[householdSelect.selectedIndex].value;
-    if (householdSelectedOption === 'admin') {
-        householdCodeInput.style.display = 'none';
-    } else {
-        householdCodeInput.style.display = 'block';
-    }
-})
+if (form) {
+    const formValidator = new Validator("register");
+    formValidator.EnableOnPageErrorDisplay();
+    formValidator.EnableMsgsTogether();
+    formValidator.addValidation("name", "req", "Please provide your name");
+    formValidator.addValidation("email", "req", "Please provide your email address");
+    formValidator.addValidation("email", "email", "Please provide a valid email address");
+    formValidator.addValidation("username", "req", "Please provide a username");
+    formValidator.addValidation("password", "req", "Please provide a password");
+}

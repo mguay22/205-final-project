@@ -12,7 +12,9 @@
         <script src="//html5shim.googlecode.com/sin/trunk/html5.js"></script>
         <![endif]-->
 
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
         <link rel="stylesheet" href="css/main.css" type="text/css">
+        <script src="vendor/gen_validatorv4.js" type="text/javascript"></script>
 
         <?php
         // %^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
@@ -33,7 +35,7 @@
 
     <!-- **********************     Body section      ********************** -->
     <?php
-    print '<body id="' . $PATH_PARTS['filename'] . '">';
+    print '<body id="' . $PATH_PARTS['filename'] . '" class="container">';
     include 'header.php';
     include 'nav.php';
     ?>
