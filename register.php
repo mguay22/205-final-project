@@ -31,6 +31,11 @@ if (isset($_POST['submitted'])) {
             <label for="password" >Password*:</label>
             <input type="password" class="form-control" name="password" id="password" maxlength="50" />
         </div>
+        <div class="form-group">
+            <label for="house-code">House Code:</label>
+            <input type="text" class="form-control" name="house-code" id="house-code" maxlength="50" placeholder="Optional" />
+            <small class="form-text text-muted">If you have a house code to associate your account with, enter it here. You can always change this later.</small>
+        </div>
         <input type="submit" name="Submit" class="btn btn-primary" value="Submit" />
     </fieldset>
 </form>

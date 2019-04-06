@@ -4,11 +4,13 @@ require_once(dirname(__DIR__) . '/vendor/formvalidator.php');
 class Auth {
     public $errorMessage;
     private $tableName;
-    private $database;
+    private $databaseReader;
+    private $databaseWriter;
 
-    public function __construct() {
-        $this->tableName = 'JHCHILDS_BillApp';
-        $this->database = new Database('jhchilds_admin', 'a', $this->tableName);
+    public function __construct($databaseReader, $databaseWriter) {
+        $this->tableName = 'user';
+        $this->databaseReader = $databaseReader;
+        $this->databaseWriter = $databaseWriter;
     }
 
     public function registerUser() {
@@ -25,6 +27,56 @@ class Auth {
         return true;
     }
 
+    public function loginUser() {
+        if (empty($_POST['username'])) {
+            $this->handleError("Username is empty!");
+            return false;
+        }
+        
+        if (empty($_POST['password'])) {
+            $this->handleError("Password is empty!");
+            return false;
+        }
+        
+        $username = trim($_POST['username']);
+        $password = trim($_POST['password']);
+        
+        if (!isset($_SESSION)) { 
+            session_start(); 
+        }
+
+        if (!$this->checkLoginInDB($username, $password)) {
+            return false;
+        }
+        
+        $_SESSION[$this->getLoginSessionVar()] = $username;
+        
+        return true;
+    }
+
+    private function checkLoginInDB($username, $password) {
+        $username = $this->sanitizeForSQL($username);
+        $encryptedPassword = md5($password);
+        $query = "select full_name, email from " . $this->tablename . " where username='" . $username . "' and password='" . $encryptedPassword . "'";
+        $query = "select username from " . $this->tableName . " where " . $fieldName . "= ?";
+
+        $result = $this->databaseReader->select($query,$this->connection);
+        
+        if(!$result || mysql_num_rows($result) <= 0)
+        {
+            $this->HandleError("Error logging in. The username or password does not match");
+            return false;
+        }
+        
+        $row = mysql_fetch_assoc($result);
+        
+        
+        $_SESSION['name_of_user']  = $row['name'];
+        $_SESSION['email_of_user'] = $row['email'];
+        
+        return true;
+    }
+
     private function collectFormSubmission() {
         $formInfo = array();
 
@@ -32,6 +84,7 @@ class Auth {
         $formInfo['email'] = $this->sanitize($_POST['email']);
         $formInfo['username'] = $this->sanitize($_POST['username']);
         $formInfo['password'] = $this->sanitize($_POST['password']);
+        $formInfo['house-code'] = $this->sanitize($_POST['house-code']);
 
         return $formInfo;
     }
@@ -60,22 +113,24 @@ class Auth {
             (full_name,
             email,
             username,
-            password) VALUES (:full_name, :email, :username, :password)';
+            password,
+            house_code) VALUES (:full_name, :email, :username, :password, :house_code)';
 
         $values = array(
             $this->sanitizeForSQL($formInfo['name']),
             $this->sanitizeForSQL($formInfo['email']),
             $this->sanitizeForSQL($formInfo['username']),
-            md5($formInfo['password'])
+            md5($formInfo['password']),
+            $this->sanitizeForSQL($formInfo['house-code'])
         ); 
 
-        return $this->database->insert($query, $values);
+        return $this->databaseWriter->insert($query, $values);
     }
 
     private function isFieldUnique($formInfo, $fieldName) {
         $fieldValue = $this->sanitizeForSQL($formInfo[$fieldName]);
-        $query = "select username from " . $this->tableName . "where " . $fieldName . "=";
-        $result = $this->database->select($query, $fieldName);
+        $query = "select username from " . $this->tableName . " where " . $fieldName . "= ?";
+        $result = $this->databaseReader->select($query, array($fieldName));
         if ($result && my_sql_num_rows($result) > 0) {
             return false;
         }
