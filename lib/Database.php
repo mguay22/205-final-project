@@ -118,6 +118,7 @@ class Database {
         try {
             if (!$this->db)
                 $this->db = new PDO($dsn . $dbName, $dbUserName, $dbUserPass);
+                $this->db->setAttribute( PDO::ATTR_ERRMODE, PDO::ERRMODE_WARNING );
             if (!$this->db) {
                 if (self::DB_DEBUG)
                     echo '<p>You are NOT connected to the database!</p>';
@@ -257,8 +258,17 @@ class Database {
         
         $statement = $this->db->prepare($query);
 
+        var_dump($query);
+        var_dump($values);
+
         if (is_array($values)) {
-            $success = $statement->execute($values);
+            $success = $statement->execute([
+                ':full_name' => $values[0],
+                ':email' => $values[1],
+                ':username' => $values[2],
+                ':password' => $values[3],
+                ':house_code' => $values[4]
+            ]);
         } else {
             $success = $statement->execute();
         }
@@ -374,6 +384,9 @@ class Database {
     public function select($query, $values = '') {
         
         $statement = $this->db->prepare($query);
+
+        var_dump($statement);
+        var_dump($values);
 
         if (is_array($values)) {
             $statement->execute($values);

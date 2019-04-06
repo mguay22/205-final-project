@@ -22,7 +22,6 @@
     <!--[if lt IE 9]>
     <script src="//html5shim.googlecode.com/sin/trunk/html5.js"></script>
     <![endif]-->
-
     <?php
     // %^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
     //
@@ -30,6 +29,7 @@
     //
     // %^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%^%
     print '<!-- begin including libraries -->';
+
 
     include 'lib/constants.php';
 
@@ -40,7 +40,11 @@
 
 </head>
 
+
 <!-- **********************     Body section      ********************** -->
 <?php
 //print '<body id="' . $PATH_PARTS['filename'] . '">';
+//  include 'header.php';
+ //   include 'nav.php';
 ?>
+

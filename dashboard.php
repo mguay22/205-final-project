@@ -213,3 +213,8 @@ function getBills($thisDatabaseReader, $currentAddressId)
 </body>
 
 </html>
+require_once(__DIR__ . '/templates/footer.php');
+require_once(__DIR__ . '/lib/config.php');
+
+var_dump('Hello!');
+
