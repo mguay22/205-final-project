@@ -257,8 +257,17 @@ class Database {
         
         $statement = $this->db->prepare($query);
 
+        var_dump($statement);
+        var_dump($values);
+
         if (is_array($values)) {
-            $success = $statement->execute($values);
+            $success = $statement->execute([
+                'full_name' => $values[0],
+                'email' => $values[1],
+                'username' => $values[2],
+                'password' => $values[3]
+            ]);
+            var_dump($success);
         } else {
             $success = $statement->execute();
         }

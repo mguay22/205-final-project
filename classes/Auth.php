@@ -2,13 +2,13 @@
 require_once(dirname(__DIR__) . '/vendor/formvalidator.php');
 
 class Auth {
-    private $errorMessage;
+    public $errorMessage;
     private $tableName;
     private $database;
 
     public function __construct() {
         $this->tableName = 'JHCHILDS_BillApp';
-        $this->database = new Database('jhchilds_admins', '3BCU93cEVqILiDfx', $this->tableName);
+        $this->database = new Database('jhchilds_admin', 'a', $this->tableName);
     }
 
     public function registerUser() {
@@ -56,15 +56,14 @@ class Auth {
     }
 
     private function insertIntoDb($formInfo) {
-        $query = 'insert into '. $this->tableName . '(
-            full_name,
+        $query = 'insert into '. $this->tableName . ' 
+            (full_name,
             email,
             username,
-            password
-        )';
+            password) VALUES (:full_name, :email, :username, :password)';
 
         $values = array(
-            $this->sanitizeForSQL($formInfo['full_name']),
+            $this->sanitizeForSQL($formInfo['name']),
             $this->sanitizeForSQL($formInfo['email']),
             $this->sanitizeForSQL($formInfo['username']),
             md5($formInfo['password'])
@@ -75,8 +74,8 @@ class Auth {
 
     private function isFieldUnique($formInfo, $fieldName) {
         $fieldValue = $this->sanitizeForSQL($formInfo[$fieldName]);
-        $query = "select username from " . $this->tableName . "where " . $fieldname . "=";
-        $result = $this->database->select($query, $fieldName);   
+        $query = "select username from " . $this->tableName . "where " . $fieldName . "=";
+        $result = $this->database->select($query, $fieldName);
         if ($result && my_sql_num_rows($result) > 0) {
             return false;
         }
