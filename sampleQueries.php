@@ -317,3 +317,118 @@ if (is_array($records)) {
         print '<p>' . $record['type'] . ' ' . $record['dueDate'] . '     ' . $record['amount'] .'</p>';
     }
 }
+
+/**
+ * *********************** MG Insert **************************
+ */
+
+function insertLogin($query, $values = '') {
+    $success = false;
+
+    $statement = $this->db->prepare($query);
+
+    var_dump($query);
+    var_dump($values);
+
+    if (is_array($values)) {
+        $success = $statement->execute([
+            ':full_name' => $values[0],
+            ':email' => $values[1],
+            ':username' => $values[2],
+            ':password' => $values[3],
+            ':house_code' => $values[4]
+        ]);
+    } else {
+        $success = $statement->execute();
+    }
+
+    $statement->closeCursor();
+
+    return $success;
+}
+
+/**
+ * ********************** JC INSERT USER SQL ***********************
+ */
+
+// This example does not have a form so these two lines are just to put values
+// in manually for this example.
+$_POST['id'] = NULL;
+$_POST['token'] = 'sampletoken3';
+$_POST['email'] = 'jamesking@gmail.com';
+$_POST['fullName'] = 'SAMPLE INSERT';
+$_POST['username'] = 'sampleuser';
+$_POST['password'] = 'samplepass';
+$_POST['status'] = 'standard';
+$_POST['addressId'] = 1;
+$_POST['houseCode'] = 1;
+
+
+
+
+// create array to hold values for query
+$data = array();
+
+// retreive values from form and store in $data array
+$id = htmlentities($_POST['id'], ENT_QUOTES, 'UTF-8');
+$data[] = $id;
+
+
+$token = htmlentities($_POST['token'], ENT_QUOTES, 'UTF-8');
+$data[] = $token;
+
+$email = htmlentities($_POST['email'], ENT_QUOTES, 'UTF-8');
+$data[] = $email;
+
+
+$fullName = htmlentities($_POST['fullName'], ENT_QUOTES, 'UTF-8');
+$data[] = $fullName;
+
+$username = htmlentities($_POST['username'], ENT_QUOTES, 'UTF-8');
+$data[] = $username;
+
+$password = htmlentities($_POST['password'], ENT_QUOTES, 'UTF-8');
+$data[] = $password;
+
+$status = htmlentities($_POST['status'], ENT_QUOTES, 'UTF-8');
+$data[] = $status;
+
+$addressId = htmlentities($_POST['addressId'], ENT_QUOTES, 'UTF-8');
+$data[] = $addressId;
+
+$houseCode = htmlentities($_POST['houseCode'], ENT_QUOTES, 'UTF-8');
+$data[] = $houseCode;
+
+$query = 'INSERT INTO user SET ';
+$query .= 'id = ?, ';
+$query .= 'token = ?, ';
+$query .= 'email = ?, ';
+$query .= 'fullName = ?, ';
+$query .= 'username = ?, ';
+$query .= 'password = ?, ';
+$query .= 'status = ?, ';
+$query .= 'addressId = ?, ';
+$query .= 'houseCode = ? ';
+
+
+// demonstration of test query method which returns nothing but displays information.
+$records = $thisDatabaseWriter->testSecurityQuery($query, 0);
+
+// lets print out the data array so we can see what values would replace the ?
+print '<p>Contents of the array<pre>';
+print_r($data);
+print '</pre></p>';
+
+// again i commented this line out. $records will always be false because of that.
+print '<h2>Insert method</h2>';
+if ($thisDatabaseWriter->querySecurityOk($query, 0)) {
+    $query = $thisDatabaseReader->sanitizeQuery($query);
+//    $records = $thisDatabaseWriter->insert($query, $data); //Uncomment this to make insert
+}
+
+if ($records) {
+    print '<p>Record Saved</p>';
+} else {
+    print '<p>Record NOT Saved</p>';
+}
+
