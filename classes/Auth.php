@@ -109,7 +109,7 @@ class Auth {
     }
 
     private function insertIntoDb($formInfo) {
-        $query = 'INSERT INTO user SET ';
+        $query = 'insert into user set ';
         $query .= 'id = ?, ';
         $query .= 'token = ?, ';
         $query .= 'email = ?, ';
@@ -120,19 +120,28 @@ class Auth {
         $query .= 'addressId = ?, ';
         $query .= 'houseCode = ? ';
 
-        //var_dump($formInfo);
-
+        // $values = array(
+        //     NULL,
+        //     'sampleToken3',
+        //     $this->sanitizeForSQL($formInfo['email']),
+        //     $this->sanitizeForSQL($formInfo['name']),
+        //     $this->sanitizeForSQL($formInfo['username']),
+        //     md5($formInfo['password']),
+        //     'standard',
+        //     1,
+        //     1,
+        // ); 
         $values = array(
             NULL,
-            'sampleToken',
-            $this->sanitizeForSQL($formInfo['email']),
-            $this->sanitizeForSQL($formInfo['name']),
-            $this->sanitizeForSQL($formInfo['username']),
-            md5($formInfo['password']),
+            'sampletoken3',
+            'jamesking@gmail.com',
+            'SAMPLE INSERT',
+            'sampleuser',
+            'samplepass',
             'standard',
             1,
-            1,
-        ); 
+            1
+        );
 
 
         $this->databaseWriter->testSecurityQuery($query, 0);
