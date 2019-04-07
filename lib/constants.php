@@ -1,9 +1,9 @@
 <?php
 define('DATABASE_NAME', 'JHCHILDS_BillApp');
-define('DATABASE_READER', 'jhchilds_reader');
+define('DATABASE_READER', 'mguay_reader');
 define('DATABASE_READER_PWD', 'r');
 define('DATABASE_WRITER_PWD', 'w');
-define('DATABASE_WRITER', 'jhchilds_writer');
+define('DATABASE_WRITER', 'mguay_writer');
 
 define('ADMIN_EMAIL', get_current_user() . '@uvm.edu');
 

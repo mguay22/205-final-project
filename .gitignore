@@ -1,6 +1,5 @@
 .DS_STORE
 .idea
-vendor
 pass.php
 nbproject/
 constants.php
