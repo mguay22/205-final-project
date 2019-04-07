@@ -82,7 +82,7 @@
 class Database {
 
     public $db;
-    const DB_DEBUG = false;
+    const DB_DEBUG = true;
      
     public function __construct($dbUserName, $whichPass, $dbName) {
         $this->db = null;
@@ -258,6 +258,9 @@ class Database {
 
         $statement = $this->db->prepare($query);
 
+        // var_dump($statement);
+        // var_dump($values);
+
         if (is_array($values)) {
             $success = $statement->execute($values);
         } else {
@@ -373,7 +376,6 @@ class Database {
     // $values is an array that holds the values for all the ? in $query.
     //
     public function select($query, $values = '') {
-        
         $statement = $this->db->prepare($query);
 
         if (is_array($values)) {

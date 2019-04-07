@@ -1,5 +1,5 @@
 <?php
-define('DATABASE_NAME', 'JHCHILDS_BillApp');
+define('DATABASE_NAME', 'MGUAY_BillApp');
 define('DATABASE_READER', 'mguay_reader');
 define('DATABASE_READER_PWD', 'r');
 define('DATABASE_WRITER_PWD', 'w');

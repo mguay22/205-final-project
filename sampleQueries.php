@@ -319,35 +319,6 @@ if (is_array($records)) {
 }
 
 /**
- * *********************** MG Insert **************************
- */
-
-function insertLogin($query, $values = '') {
-    $success = false;
-
-    $statement = $this->db->prepare($query);
-
-    var_dump($query);
-    var_dump($values);
-
-    if (is_array($values)) {
-        $success = $statement->execute([
-            ':full_name' => $values[0],
-            ':email' => $values[1],
-            ':username' => $values[2],
-            ':password' => $values[3],
-            ':house_code' => $values[4]
-        ]);
-    } else {
-        $success = $statement->execute();
-    }
-
-    $statement->closeCursor();
-
-    return $success;
-}
-
-/**
  * ********************** JC INSERT USER SQL ***********************
  */
 
