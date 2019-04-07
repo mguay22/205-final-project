@@ -4,7 +4,7 @@ require_once('lib/config.php');
 
 if (isset($_POST['submitted'])) {
     if ($auth->registerUser()) {
-        $auth->redirect('dashboard.php');
+         $auth->redirect('dashboard.php');
     } else {
         var_dump($auth->errorMessage);
     }

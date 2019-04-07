@@ -134,9 +134,14 @@ class Auth {
 
     private function isFieldUnique($formInfo, $fieldName) {
         $fieldValue = $this->sanitizeForSQL($formInfo[$fieldName]);
-        $query = "select username from " . $this->tableName . " where " . $fieldName . "= ?";
-        $result = $this->databaseReader->select($query, array($fieldName));
-        if ($result && my_sql_num_rows($result) > 0) {
+        $query = "select " . $fieldName . " from " . $this->tableName . " where " . $fieldName . " = ?";
+        $data = array(
+            $fieldValue
+        );
+
+        $result = $this->databaseReader->select($query, $data);
+
+        if ($result && sizeof($result) > 0) {
             return false;
         }
 
