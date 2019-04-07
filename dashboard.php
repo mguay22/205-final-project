@@ -60,8 +60,6 @@ var_dump($_SESSION['userInfo']);
 var_dump('Hello ' . $_SESSION['userInfo'][0]['fullName']);
 ?>
 
-
-<body class="dark-edition">
 <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
         <!--
@@ -229,10 +227,7 @@ var_dump('Hello ' . $_SESSION['userInfo'][0]['fullName']);
 
 </script>
 </body>
-
-</html>
+<?php
 require_once(__DIR__ . '/templates/footer.php');
 require_once(__DIR__ . '/lib/config.php');
-
-var_dump('Hello!');
 

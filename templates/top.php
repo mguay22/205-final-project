@@ -43,8 +43,6 @@
 
 <!-- **********************     Body section      ********************** -->
 <?php
-//print '<body id="' . $PATH_PARTS['filename'] . '">';
-//  include 'header.php';
- //   include 'nav.php';
+print '<body id="' . $PATH_PARTS['filename'] . '" class="dark-edition container">';
 ?>
 
