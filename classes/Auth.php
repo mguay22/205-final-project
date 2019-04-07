@@ -137,6 +137,7 @@ class Auth {
 
         $this->databaseWriter->testSecurityQuery($query, 0);
         print_r($values);
+        $this->databaseWriter->sanitizeQuery($query);
         return $this->databaseWriter->insert($query, $values);
     }
 

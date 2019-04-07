@@ -1,5 +1,4 @@
 .DS_STORE
 .idea
-lib/pass.php
 nbproject/
-lib/constants.php
+lib
