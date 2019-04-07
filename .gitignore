@@ -1,7 +1,5 @@
 .DS_STORE
 .idea
-pass.php
+lib/pass.php
 nbproject/
-constants.php
-Database.php
-Connect-With-Database.php
+lib/constants.php
