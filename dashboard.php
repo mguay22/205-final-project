@@ -54,6 +54,8 @@ function getBills($thisDatabaseReader, $currentAddressId)
     return $records;
 }
 
+$currentToken = 'sampletoken1'; //JUST FOR TESTING
+
 ?>
 
 <body class="dark-edition">
@@ -72,11 +74,25 @@ function getBills($thisDatabaseReader, $currentAddressId)
         <div class="sidebar-wrapper">
             <ul class="nav">
                 <li class="nav-item active  ">
-                    <a class="nav-link" href="examples/dashboard.html">
+                    <a class="nav-link" href="dashboard.php">
                         <i class="material-icons">dashboard</i>
                         <p>Dashboard</p>
                     </a>
                 </li>
+
+                <?php
+
+                print '<li class="nav-item">
+                    <a class="nav-link" href="bill.php">
+                        <i class="material-icons">money</i>
+                        <p>Add Bill</p>
+                    </a>
+                </li>';
+
+                ?>
+
+
+
             </ul>
         </div>
     </div>
@@ -104,7 +120,6 @@ function getBills($thisDatabaseReader, $currentAddressId)
                 <div class="row">
 
                     <?php
-                    $currentToken = 'sampletoken1'; //JUST FOR TESTING
                     $records = getAddressID($thisDatabaseReader, $currentToken);
                     $currentAddressId = '';
                     if (is_array($records)) {
