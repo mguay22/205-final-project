@@ -48,31 +48,28 @@ class Auth {
         if (!$this->checkLoginInDB($username, $password)) {
             return false;
         }
-        
-        $_SESSION[$this->getLoginSessionVar()] = $username;
-        
+                
         return true;
     }
 
     private function checkLoginInDB($username, $password) {
         $username = $this->sanitizeForSQL($username);
         $encryptedPassword = md5($password);
-        $query = "select full_name, email from " . $this->tablename . " where username='" . $username . "' and password='" . $encryptedPassword . "'";
-        $query = "select username from " . $this->tableName . " where " . $fieldName . "= ?";
 
-        $result = $this->databaseReader->select($query,$this->connection);
+        $values = array(
+            $username,
+            $encryptedPassword
+        );
+
+        $query = "select * from " . $this->tableName . " where username = ? AND password = ?";
+        $result = $this->databaseReader->select($query, $values);;
         
-        if(!$result || mysql_num_rows($result) <= 0)
-        {
+        if (!$result || sizeof($result) <= 0) {
             $this->HandleError("Error logging in. The username or password does not match");
             return false;
         }
         
-        $row = mysql_fetch_assoc($result);
-        
-        
-        $_SESSION['name_of_user']  = $row['name'];
-        $_SESSION['email_of_user'] = $row['email'];
+        $_SESSION['userInfo'] = $result;
         
         return true;
     }
@@ -120,33 +117,18 @@ class Auth {
         $query .= 'addressId = ?, ';
         $query .= 'houseCode = ? ';
 
-        // $values = array(
-        //     NULL,
-        //     'sampleToken3',
-        //     $this->sanitizeForSQL($formInfo['email']),
-        //     $this->sanitizeForSQL($formInfo['name']),
-        //     $this->sanitizeForSQL($formInfo['username']),
-        //     md5($formInfo['password']),
-        //     'standard',
-        //     1,
-        //     1,
-        // ); 
         $values = array(
             NULL,
-            'sampletoken3',
-            'jamesking@gmail.com',
-            'SAMPLE INSERT',
-            'sampleuser',
-            'samplepass',
+            'sampleToken',
+            $this->sanitizeForSQL($formInfo['email']),
+            $this->sanitizeForSQL($formInfo['name']),
+            $this->sanitizeForSQL($formInfo['username']),
+            md5($formInfo['password']),
             'standard',
             1,
-            1
-        );
+            1,
+        ); 
 
-
-        $this->databaseWriter->testSecurityQuery($query, 0);
-        print_r($values);
-        $this->databaseWriter->sanitizeQuery($query);
         return $this->databaseWriter->insert($query, $values);
     }
 
