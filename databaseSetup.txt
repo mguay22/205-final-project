@@ -29,3 +29,12 @@ CREATE TABLE JHCHILDS_BillApp.bill (id INT NOT NULL AUTO_INCREMENT, type ENUM('r
 CREATE TABLE JHCHILDS_BillApp.user ( id INT NOT NULL AUTO_INCREMENT, token VARCHAR(100) NOT NULL, email VARCHAR(50) NOT NULL, fullName VARCHAR(50) NOT NULL, username VARCHAR(50) NOT NULL, password VARCHAR(50) NOT NULL, status ENUM('admin','standard') NOT NULL, addressId INT(100) NOT NULL, houseCode INT(100) NOT NULL, PRIMARY KEY(id), FOREIGN KEY(addressId) REFERENCES address(id)) ENGINE = InnoDB;
 
 ==========================================================================================
+
+
+=============== CREATE STATUS TABLE ===============================================
+CREATE TABLE STATUS(
+  `ID` int not null AUTO_INCREMENT primary key ,
+  `USERID` INT NOT NULL  DEFAULT 0,
+  `BILLID` INT NOT NULL DEFAULT 0,
+  `STATUS` ENUM("Pay", "Not-pay"),
+)
