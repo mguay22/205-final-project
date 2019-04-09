@@ -6,11 +6,11 @@
  * and open the template in the editor.
  */
 
-$billType = "";
+$type = "";
 $amount = "";
 $dueDate = "";
 $additionalInfo = "";
-$fileInfo = "";
+$fileName= "";
 $billTypeEr = $amountEr = $dueDateEr =  "";
 
 /*if ($_SERVER["REQUEST_METHOD"] == "POST") {*/
@@ -25,32 +25,39 @@ $billTypeEr = $amountEr = $dueDateEr =  "";
             <p>
                 <label class ="radio-field">
                     <input type="radio"
-                           name="radBill"
-                           value="Rent"
+                           name="type"
+                           value="rent"
                            tabindex="572">
                 Rent</label>
                 <label class ="radio-field">
                     <input type="radio"
-                           name="radBill"
-                           value="Energy"
+                           name="type"
+                           value="gas"
                            tabindex="572">
-                Energy</label>
+                Gas</label>
                 <label class ="radio-field">
                     <input type="radio"
-                           name="radBill"
-                           value="Water"
+                           name="type"
+                           value="water"
                            tabindex="572">
                 Water</label>
                 <label class ="radio-field">
                     <input type="radio"
-                           name="radBill"
-                           value="Internet"
+                           name="type"
+                           value="wifi"
                            tabindex="572">
-                Internet</label>
+                Wifi</label>
+
                 <label class ="radio-field">
                     <input type="radio"
-                           name="radBill"
-                           value="Other"
+                           name="type"
+                           value="electric"
+                           tabindex="572">
+                    Electric</label>
+                <label class ="radio-field">
+                    <input type="radio"
+                           name="type"
+                           value="other"
                            tabindex="572">
                 Other</label>
             </p>
@@ -61,7 +68,7 @@ $billTypeEr = $amountEr = $dueDateEr =  "";
                 <label class="required text-field" for="txtAmount">Amount</label>
                 <input id ="txtAmount"
                        maxlength ="45"
-                       name="txtAmount"
+                       name="amount"
                        placeholder="Enter amount"
                        tabindex="100"
                        type= "text"
@@ -71,9 +78,9 @@ $billTypeEr = $amountEr = $dueDateEr =  "";
             <p>
                 <label class="required text-field" for="txtDueDate">Due Date</label>
                 <input id="txtDueDate"
-                       name="txtDueDate"
+                       name="dueDate"
                        tabindex="100"
-                       type="date"
+                       type="text"
                        value="<?php print $dueDate; ?>"
                        >
             </p>
