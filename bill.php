@@ -80,7 +80,7 @@ $billTypeEr = $amountEr = $dueDateEr =  "";
                 <input id="txtDueDate"
                        name="dueDate"
                        tabindex="100"
-                       type="text"
+                       type="date"
                        value="<?php print $dueDate; ?>"
                        >
             </p>

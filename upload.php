@@ -27,7 +27,7 @@ if (isset($_POST["btnSubmit"])) {
         $dueDateEr = "Due Date is required";
     }else {
         $dueDate = test_input($_POST["dueDate"]);
-        $data[] = '20190805'; //TESTING
+        $data[] = $dueDate; //TESTING
         $data[] = 1; //ADDRESS ID DUMMY VALUE
     }
     
