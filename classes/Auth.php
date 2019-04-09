@@ -81,7 +81,6 @@ class Auth {
         $formInfo['email'] = $this->sanitize($_POST['email']);
         $formInfo['username'] = $this->sanitize($_POST['username']);
         $formInfo['password'] = $this->sanitize($_POST['password']);
-        $formInfo['house-code'] = $this->sanitize($_POST['house-code']);
 
         return $formInfo;
     }
@@ -114,20 +113,21 @@ class Auth {
         $query .= 'username = ?, ';
         $query .= 'password = ?, ';
         $query .= 'status = ?, ';
-        $query .= 'addressId = ?, ';
-        $query .= 'houseCode = ? ';
+        $query .= 'addressId = ? ';
 
         $values = array(
-            NULL,
+            null,
             'sampleToken',
             $this->sanitizeForSQL($formInfo['email']),
             $this->sanitizeForSQL($formInfo['name']),
             $this->sanitizeForSQL($formInfo['username']),
             md5($formInfo['password']),
-            'standard',
-            1,
-            1,
+            null,
+            null
         ); 
+
+        var_dump($query);
+        var_dump($values);
 
         return $this->databaseWriter->insert($query, $values);
     }
