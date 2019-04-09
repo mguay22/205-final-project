@@ -32,9 +32,9 @@ CREATE TABLE JHCHILDS_BillApp.user ( id INT NOT NULL AUTO_INCREMENT, token VARCH
 
 
 =============== CREATE STATUS TABLE ===============================================
-CREATE TABLE STATUS(
-  `ID` int not null AUTO_INCREMENT primary key ,
-  `USERID` INT NOT NULL  DEFAULT 0,
-  `BILLID` INT NOT NULL DEFAULT 0,
-  `STATUS` ENUM("Pay", "Not-pay"),
-)
+CREATE TABLE USER_BILL_RLT(
+  `id` INT NOT NULL AUTO_INCREMENT primary key ,
+  `userId` INT NOT NULL  DEFAULT 0,
+  `billId` INT NOT NULL DEFAULT 0,
+  `status` ENUM("Pay", "Not-pay"),
+);
