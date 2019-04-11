@@ -31,7 +31,7 @@ class Auth {
 
     }
 
-    public function registerExistingHousehold($householdCode, $userId) {
+    public function registerExistingHousehold($householdCode, $username) {
         // Check to see if household code matches any in the current database
         $doesHouseholdExist = $this->validatExistingHouseholdCode($householdCode);
         if (!$doesHouseholdExist) {
@@ -39,7 +39,7 @@ class Auth {
         }
 
         // Update user
-        $updateUser = $this->updateUserHouseholdCode($householdCode, $userId);
+        $updateUser = $this->updateUserHouseholdCode($householdCode, $username);
         if (!$updateUser) {
             return false;
         }
@@ -87,14 +87,15 @@ class Auth {
         return true;
     }
 
-    private function updateUserHouseholdCode($householdCode, $userId) {
-        $query = "update user SET addressId = ? WHERE id = ?";
+    private function updateUserHouseholdCode($householdCode, $username) {
+        $query = "update user SET addressId = ? WHERE username = ?";
         $queryArray = array(
             $householdCode,
-            $userId
+            $username
         );
 
         $result = $this->databaseWriter->update($query, $queryArray);
+        var_dump($result);
 
         if (!$result) {
             return false;
