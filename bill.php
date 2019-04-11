@@ -5,6 +5,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+require_once('templates/top.php');
+require_once('lib/config.php');
 
 $type = "";
 $amount = "";
@@ -16,10 +18,18 @@ $billTypeEr = $amountEr = $dueDateEr =  "";
 /*if ($_SERVER["REQUEST_METHOD"] == "POST") {*/
 
 
+if (isset($_POST['btnSubmit'])) {
+    if ($bill->addBill()) {
+        $bill->redirect('upload.php');
+    } else {
+        var_dump($bill->errorMessage);
+    }
+}
+
 ?>
 <article id ="main">
     <h2>Enter Bill</h2>
-    <form id ="bill" action="upload.php" method="POST" enctype="multipart/form-data">
+    <form id ="bill" action="" method="POST" enctype="multipart/form-data">
         <fieldset class = "radio">
             <legend>Bill Type</legend>
             <p>
