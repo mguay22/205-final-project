@@ -2,6 +2,19 @@
 require_once(__DIR__ . '/templates/top.php');
 require_once(__DIR__ . '/lib/config.php');
 
+$currentToken = 'sampletoken1'; //JUST FOR TESTING
+session_start(); 
+
+if (!isset($_SESSION['userInfo'])) {
+    $auth->redirect('index.php');
+}
+
+if (!isset($_SESSION['userInfo'][0]['addressId'])
+|| !isset($_SESSION['userInfo'][0]['status'])) {
+    // User still needs to associate an address
+    $auth->redirect('address.php');
+}
+
 function getAddressID($thisDatabaseReader, $currentToken)
 {
 
@@ -55,21 +68,6 @@ function getBills($thisDatabaseReader, $currentAddressId)
     return $records;
 }
 
-$currentToken = 'sampletoken1'; //JUST FOR TESTING
-session_start(); 
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['logout-button'])) {
-        session_destroy();
-    }
-}
-
-if (!isset($_SESSION['userInfo'])) {
-    $auth->redirect('index.php');
-}
-
-var_dump($_SESSION['userInfo']);
-var_dump('Hello ' . $_SESSION['userInfo'][0]['fullName']);
 ?>
 
 <div class="wrapper ">
@@ -115,8 +113,7 @@ var_dump('Hello ' . $_SESSION['userInfo'][0]['fullName']);
             <div class="container-fluid">
                 <div class="navbar-wrapper">
                     <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
-                    <form name="logout" method="post" action="dashboard.php">
-                        <input class="btn" type="submit" name="logout-button" value="Logout">
+                    <a class="navbar-brand" href="index.php">Logout</a>
                     </form>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
@@ -131,6 +128,9 @@ var_dump('Hello ' . $_SESSION['userInfo'][0]['fullName']);
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
+                <div class="row">
+                    <?php var_dump($_SESSION['userInfo']); ?>
+                </div>
 
                 <!--    BILL DISPLAY ROW    -->
                 <div class="row">

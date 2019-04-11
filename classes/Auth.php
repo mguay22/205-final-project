@@ -27,6 +27,26 @@ class Auth {
         return true;
     }
 
+    public function registerNewHousehold() {
+
+    }
+
+    public function registerExistingHousehold($householdCode, $userId) {
+        // Check to see if household code matches any in the current database
+        $doesHouseholdExist = $this->validatExistingHouseholdCode($householdCode);
+        if (!$doesHouseholdExist) {
+            return false;
+        }
+
+        // Update user
+        $updateUser = $this->updateUserHouseholdCode($householdCode, $userId);
+        if (!$updateUser) {
+            return false;
+        }
+
+        return true;
+    }
+
     public function loginUser() {
         if (empty($_POST['username'])) {
             $this->handleError("Username is empty!");
@@ -50,6 +70,38 @@ class Auth {
         }
                 
         return true;
+    }
+
+    private function validatExistingHouseholdCode($householdCode) {
+        $query = "select * from address where id = ?";
+        $queryArray = array(
+            $householdCode
+        );
+
+        $result = $this->databaseWriter->select($query, $queryArray);
+
+        if (!$result || sizeof($result) == 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function updateUserHouseholdCode($householdCode, $userId) {
+        $query = "update user SET addressId = ? WHERE id = ?";
+        $queryArray = array(
+            $householdCode,
+            $userId
+        );
+
+        $result = $this->databaseWriter->update($query, $queryArray);
+
+        if (!$result) {
+            return false;
+        }
+
+        return true;
+
     }
 
     private function checkLoginInDB($username, $password) {
@@ -124,10 +176,7 @@ class Auth {
             md5($formInfo['password']),
             null,
             null
-        ); 
-
-        var_dump($query);
-        var_dump($values);
+        ); ;
 
         return $this->databaseWriter->insert($query, $values);
     }
