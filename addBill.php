@@ -20,7 +20,7 @@ $billTypeEr = $amountEr = $dueDateEr =  "";
 
 if (isset($_POST['btnSubmit'])) {
     if ($bill->addBill()) {
-        $bill->redirect('upload.php');
+        $bill->redirect('dashboard.php');
     } else {
         var_dump($bill->errorMessage);
     }
@@ -103,7 +103,7 @@ if (isset($_POST['btnSubmit'])) {
             </p>
             <p>
                 <label class ="optional">File</label>
-                <input type="file" name="file" />
+                <input type="file" name="fileName" />
             </p>
         </fieldset>
         <fieldset class="buttons">

@@ -32,7 +32,7 @@ class Bill
         }
 
         if (isset($_POST["btnSubmit"])) {
-            $dir = "../file/";
+            $dir = "file/";
             $path = $dir . basename($_FILES["fileName"]["name"]);
            if( move_uploaded_file($_FILES["fileName"]["tmp_name"], $path)) {
                echo"Uploaded";
