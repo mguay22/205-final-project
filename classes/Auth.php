@@ -24,6 +24,12 @@ class Auth {
             return false;
         }
 
+        $_POST['username'] = $formInfo['username'];
+        $_POST['password'] = $formInfo['password'];
+        if (!$this->loginUser()) {
+            return false;
+        }
+
         return true;
     }
 
@@ -31,15 +37,18 @@ class Auth {
 
     }
 
-    public function registerExistingHousehold($householdCode, $username) {
+    public function registerExistingHousehold($householdCode, $userInfo) {
         // Check to see if household code matches any in the current database
         $doesHouseholdExist = $this->validatExistingHouseholdCode($householdCode);
         if (!$doesHouseholdExist) {
             return false;
         }
 
+        $username = $userInfo[0]['username'];
+
         // Update user
         $updateUser = $this->updateUserHouseholdCode($householdCode, $username);
+        var_dump($updateUser);
         if (!$updateUser) {
             return false;
         }
@@ -95,7 +104,6 @@ class Auth {
         );
 
         $result = $this->databaseWriter->update($query, $queryArray);
-        var_dump($result);
 
         if (!$result) {
             return false;

@@ -6,12 +6,16 @@ require_once('lib/config.php');
 <?php
 session_start();
 
-if (!isset($_SESSION['username'])) {
+var_dump($_SESSION['userInfo']);
+
+var_dump($_POST['householdCode']);
+
+if (!isset($_SESSION['userInfo'])) {
     $auth->redirect('index.php');
 }
 
 if (isset($_POST['householdCode'])) {
-    $registerUserSuccess = $auth->registerExistingHousehold($_POST['householdCode'], $_SESSION['username']);
+    $registerUserSuccess = $auth->registerExistingHousehold($_POST['householdCode'], $_SESSION['userInfo']);
     if ($registerUserSuccess) {
         $auth->redirect('dashboard.php');
     } else {

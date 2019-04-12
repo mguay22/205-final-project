@@ -4,10 +4,7 @@ require_once('lib/config.php');
 
 if (isset($_POST['submitted'])) {
     if ($auth->registerUser()) {
-        // TODO (mguay): When a user registers succussfully, update the userInfo session array with
-        // their info to replace possibly stale data
         session_start();
-        $_SESSION['username'] = $_POST['username'];
         $auth->redirect('address.php');
     } else {
         var_dump($auth->errorMessage);
