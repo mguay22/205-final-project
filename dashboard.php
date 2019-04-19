@@ -68,6 +68,22 @@ function getBills($thisDatabaseReader, $currentAddressId)
     return $records;
 }
 
+$currentToken = 'sampletoken1'; //JUST FOR TESTING
+session_start(); 
+
+
+//var_dump($_SESSION['userInfo']);
+//
+//
+//var_dump('Hello ' . $_SESSION['userInfo'][0]['fullName']);
+
+
+
+
+echo "\n\nTEST\n\n";
+echo $_SESSION['userInfo'][0]['addressId'];
+
+
 ?>
 
 <div class="wrapper ">
@@ -136,13 +152,16 @@ function getBills($thisDatabaseReader, $currentAddressId)
                 <div class="row">
 
                     <?php
-                    $records = getAddressID($thisDatabaseReader, $currentToken);
-                    $currentAddressId = '';
-                    if (is_array($records)) {
-                        foreach ($records as $record) {
-                            $currentAddressId = $record['addressId'];
-                        }
-                    }
+
+//                    $records = getAddressID($thisDatabaseReader, $currentToken);
+//                    $currentAddressId = '';
+//                    if (is_array($records)) {
+//                        foreach ($records as $record) {
+//                            $currentAddressId = $record['addressId'];
+//                            }
+//                    }
+
+                    $currentAddressId = $_SESSION['userInfo'][0]['addressId'];
 
                     $records = getBills($thisDatabaseReader, $currentAddressId);
                     if (is_array($records)) {

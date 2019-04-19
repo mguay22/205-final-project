@@ -403,3 +403,80 @@ if ($records) {
     print '<p>Record NOT Saved</p>';
 }
 
+
+
+
+
+
+/**
+ * ********************** JC INSERT BILL SQL ***********************
+ */
+
+// This example does not have a form so these two lines are just to put values
+// in manually for this example.
+$_POST['id'] = NULL;
+$_POST['type'] = 'rent';
+$_POST['dueDate'] = '20190805';
+$_POST['addressId'] = 1;
+$_POST['fileName'] = 'sampleFile.png';
+$_POST['amount'] = 2000;
+
+
+
+
+// create array to hold values for query
+$data = array();
+
+// retreive values from form and store in $data array
+$id = htmlentities($_POST['id'], ENT_QUOTES, 'UTF-8');
+$data[] = $id;
+
+
+$type = htmlentities($_POST['type'], ENT_QUOTES, 'UTF-8');
+$data[] = $type;
+
+$dueDate = htmlentities($_POST['dueDate'], ENT_QUOTES, 'UTF-8');
+$data[] = $dueDate;
+
+
+$addressId = htmlentities($_POST['addressId'], ENT_QUOTES, 'UTF-8');
+$data[] = $addressId;
+
+$fileName = htmlentities($_POST['fileName'], ENT_QUOTES, 'UTF-8');
+$data[] = $fileName;
+
+$amount = htmlentities($_POST['amount'], ENT_QUOTES, 'UTF-8');
+$data[] = $amount;
+
+
+$query = 'INSERT INTO bill SET ';
+$query .= 'id = ?, ';
+$query .= 'type = ?, ';
+$query .= 'dueDate = ?, ';
+$query .= 'addressId = ?, ';
+$query .= 'fileName = ?, ';
+$query .= 'amount = ? ';
+
+
+// demonstration of test query method which returns nothing but displays information.
+$records = $thisDatabaseWriter->testSecurityQuery($query, 0);
+
+// lets print out the data array so we can see what values would replace the ?
+print '<p>Contents of the array<pre>';
+print_r($data);
+print '</pre></p>';
+
+// again i commented this line out. $records will always be false because of that.
+print '<h2>Insert method</h2>';
+if ($thisDatabaseWriter->querySecurityOk($query, 0)) {
+    $query = $thisDatabaseReader->sanitizeQuery($query);
+    $records = $thisDatabaseWriter->insert($query, $data); //Uncomment this to make insert
+}
+
+if ($records) {
+    print '<p>Record Saved</p>';
+} else {
+    print '<p>Record NOT Saved</p>';
+}
+
+
