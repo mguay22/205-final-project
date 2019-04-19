@@ -111,5 +111,78 @@ if (isset($_POST['btnSubmit'])) {
                 <input class="button" id="btnSubmit" name="btnSubmit" tabindex="400" type="submit" value="Add" >
         </fieldset>
     </form>
-
+    <h2>Calculator</h2>
+    <form id ="calculator">
+        <fieldset class = "num">
+            <p>
+                <label>Num 1</label>
+                <input type= "number" name ="num1" min = "0" value = "0" step = "0.01">
+            </p>
+            <fieldset class ="operator">
+            <label class ="radio-field">
+                <input type="radio"
+                        name="operator"
+                        value="+"
+                        tabindex="572">
+            +</label>
+            <label class ="radio-field">
+                <input type="radio"
+                        name="operator"
+                        value="-"
+                        tabindex="572">
+            -</label>
+            <label class ="radio-field">
+                <input type="radio"
+                        name="operator"
+                        value="X"
+                        tabindex="572">
+            X</label>
+            <label class ="radio-field">
+                <input type="radio"
+                        name="operator"
+                        value="÷"
+                        tabindex="572">
+            ÷</label>
+        </fieldset>
+            <p>
+                <label>Num 2</label>
+                <input type= "number" name ="num2" min = "0" value = "0" step = "0.01">
+            </p>
+        </fieldset>
+        <fieldset class="buttons">
+                <legend></legend>
+                <input class="button" id="btnResult" name="btnResult" tabindex="400" type="submit" value="Equal" >
+        </fieldset>
+    </form>
+    <?php
+        $result = array();
+        if(isset($_GET["btnResult"])){
+            $num1 = $_GET["num1"];
+            $num2 = $_GET["num2"];
+            $operator = $_GET["operator"];
+            echo $num1;
+            echo " ";
+            echo $operator;
+            echo " ";
+            echo $num2;
+            echo "<br>";
+            echo "<h3>Result</h3>";
+            echo "<br>";
+            //if($operator != "+" || $operator != "-" || $operator != "X" || $operator != "÷"){
+            //   echo "choose an operator";
+            //}
+            if($operator == "+"){
+                echo $num1 + $num2;
+            }
+            if($operator == "-"){
+                echo $num1 - $num2;
+            }
+            if($operator == "X"){
+                echo $num1 * $num2;
+            }
+            if($operator == "÷"){
+                echo $num1 / $num2;
+            }
+        }
+    ?>
 </article>
