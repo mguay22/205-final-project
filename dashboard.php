@@ -1,5 +1,19 @@
 <?php
 require_once(__DIR__ . '/templates/top.php');
+require_once(__DIR__ . '/lib/config.php');
+
+$currentToken = 'sampletoken1'; //JUST FOR TESTING
+session_start(); 
+
+if (!isset($_SESSION['userInfo'])) {
+    $auth->redirect('index.php');
+}
+
+if (!isset($_SESSION['userInfo'][0]['addressId'])
+|| !isset($_SESSION['userInfo'][0]['status'])) {
+    // User still needs to associate an address
+    $auth->redirect('address.php');
+}
 
 function getAddressID($thisDatabaseReader, $currentToken)
 {
@@ -115,6 +129,8 @@ echo $_SESSION['userInfo'][0]['addressId'];
             <div class="container-fluid">
                 <div class="navbar-wrapper">
                     <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
+                    <a class="navbar-brand" href="index.php">Logout</a>
+                    </form>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
                         aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
@@ -128,6 +144,9 @@ echo $_SESSION['userInfo'][0]['addressId'];
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
+                <div class="row">
+                    <?php var_dump($_SESSION['userInfo']); ?>
+                </div>
 
                 <!--    BILL DISPLAY ROW    -->
                 <div class="row">

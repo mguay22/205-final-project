@@ -18,3 +18,11 @@ if (registerForm) {
     formValidator.addValidation("username", "req", "Please provide a username");
     formValidator.addValidation("password", "req", "Please provide a password");
 }
+
+const existingHouseholdButton = document.getElementById('existing-household');
+const householdCodeForm = document.getElementById('household-code-form');
+const householdButtons = document.getElementById('household-buttons');
+existingHouseholdButton.addEventListener('click', () => {
+    householdCodeForm.style.display = 'block';
+    householdButtons.style.display = 'none';
+})

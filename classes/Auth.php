@@ -24,6 +24,35 @@ class Auth {
             return false;
         }
 
+        $_POST['username'] = $formInfo['username'];
+        $_POST['password'] = $formInfo['password'];
+        if (!$this->loginUser()) {
+            return false;
+        }
+
+        return true;
+    }
+
+    public function registerNewHousehold() {
+
+    }
+
+    public function registerExistingHousehold($householdCode, $userInfo) {
+        // Check to see if household code matches any in the current database
+        $doesHouseholdExist = $this->validatExistingHouseholdCode($householdCode);
+        if (!$doesHouseholdExist) {
+            return false;
+        }
+
+        $username = $userInfo[0]['username'];
+
+        // Update user
+        $updateUser = $this->updateUserHouseholdCode($householdCode, $username);
+        var_dump($updateUser);
+        if (!$updateUser) {
+            return false;
+        }
+
         return true;
     }
 
@@ -50,6 +79,38 @@ class Auth {
         }
                 
         return true;
+    }
+
+    private function validatExistingHouseholdCode($householdCode) {
+        $query = "select * from address where id = ?";
+        $queryArray = array(
+            $householdCode
+        );
+
+        $result = $this->databaseWriter->select($query, $queryArray);
+
+        if (!$result || sizeof($result) == 0) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function updateUserHouseholdCode($householdCode, $username) {
+        $query = "update user SET addressId = ? WHERE username = ?";
+        $queryArray = array(
+            $householdCode,
+            $username
+        );
+
+        $result = $this->databaseWriter->update($query, $queryArray);
+
+        if (!$result) {
+            return false;
+        }
+
+        return true;
+
     }
 
     private function checkLoginInDB($username, $password) {
@@ -81,7 +142,6 @@ class Auth {
         $formInfo['email'] = $this->sanitize($_POST['email']);
         $formInfo['username'] = $this->sanitize($_POST['username']);
         $formInfo['password'] = $this->sanitize($_POST['password']);
-        $formInfo['house-code'] = $this->sanitize($_POST['house-code']);
 
         return $formInfo;
     }
@@ -114,20 +174,18 @@ class Auth {
         $query .= 'username = ?, ';
         $query .= 'password = ?, ';
         $query .= 'status = ?, ';
-        $query .= 'addressId = ?, ';
-        $query .= 'houseCode = ? ';
+        $query .= 'addressId = ? ';
 
         $values = array(
-            NULL,
+            null,
             'sampleToken',
             $this->sanitizeForSQL($formInfo['email']),
             $this->sanitizeForSQL($formInfo['name']),
             $this->sanitizeForSQL($formInfo['username']),
             md5($formInfo['password']),
-            'standard',
-            1,
-            1,
-        ); 
+            null,
+            null
+        ); ;
 
         return $this->databaseWriter->insert($query, $values);
     }
