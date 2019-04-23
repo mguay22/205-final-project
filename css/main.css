@@ -1,18 +1,15 @@
 /**
 Login Page
 **/
-@import url('https://fonts.googleapis.com/css?family=Numans');
 
-.card{
+.sign-in-card{
 height: 370px;
-margin-top: 15%;
-margin-bottom: auto;
-width: 600px;
-background-color: rgba(0,0,0,0.5) !important;
+margin: 20vh auto;
+width: 800px;
 text-align: center;
 }
 
-.card-body {
+.sign-in-card-body {
     padding-left: 0 !important;
 }
 
@@ -107,4 +104,30 @@ margin-left: 4px;
 
 i {
     color: white;
+}
+
+/**
+Registration Page
+**/
+
+.divider-text {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.divider-text span {
+    padding: 7px;
+    font-size: 12px;
+    position: relative;   
+    z-index: 2;
+}
+.divider-text:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    top: 55%;
+    left: 0;
+    z-index: 1;
 }

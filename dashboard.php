@@ -69,7 +69,6 @@ function getBills($thisDatabaseReader, $currentAddressId)
 }
 
 $currentToken = 'sampletoken1'; //JUST FOR TESTING
-session_start(); 
 
 
 //var_dump($_SESSION['userInfo']);
@@ -145,7 +144,6 @@ echo $_SESSION['userInfo'][0]['addressId'];
         <div class="content">
             <div class="container-fluid">
                 <div class="row">
-                    <?php var_dump($_SESSION['userInfo']); ?>
                 </div>
 
                 <!--    BILL DISPLAY ROW    -->
