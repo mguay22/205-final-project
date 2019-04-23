@@ -37,9 +37,10 @@ class Auth {
 
     }
 
-    public function registerExistingHousehold($householdCode, $userInfo) {
-        // Check to see if household code matches any in the current database
-        $doesHouseholdExist = $this->validatExistingHouseholdCode($householdCode);
+    public function registerExistingHousehold($addressId, $userInfo) {
+        // Check to see if addressId matches any in the current database
+        $doesHouseholdExist = $this->validatExistingAddressId($addressId);
+
         if (!$doesHouseholdExist) {
             return false;
         }
@@ -47,12 +48,11 @@ class Auth {
         $username = $userInfo[0]['username'];
 
         // Update user
-        $updateUser = $this->updateUserHouseholdCode($householdCode, $username);
-        var_dump($updateUser);
+        $updateUser = $this->updateUserAddressId($addressId, $username);
         if (!$updateUser) {
             return false;
         }
-
+        
         return true;
     }
 
@@ -81,10 +81,10 @@ class Auth {
         return true;
     }
 
-    private function validatExistingHouseholdCode($householdCode) {
+    private function validatExistingAddressId($addressId) {
         $query = "select * from address where id = ?";
         $queryArray = array(
-            $householdCode
+            $addressId
         );
 
         $result = $this->databaseWriter->select($query, $queryArray);
@@ -96,14 +96,17 @@ class Auth {
         return true;
     }
 
-    private function updateUserHouseholdCode($householdCode, $username) {
-        $query = "update user SET addressId = ? WHERE username = ?";
+    private function updateUserAddressId($addressId, $username) {
+        $query = "update user SET addressId = ?, status = ? WHERE username = ?";
         $queryArray = array(
-            $householdCode,
+            $addressId,
+            'standard',
             $username
         );
 
         $result = $this->databaseWriter->update($query, $queryArray);
+
+        var_dump($result);
 
         if (!$result) {
             return false;

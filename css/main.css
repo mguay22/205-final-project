@@ -1,3 +1,136 @@
 .expiredStatus{
     color: red;
 }
+/**
+Login Page
+**/
+
+.sign-in-card{
+height: 370px;
+margin: 20vh auto;
+width: 800px;
+text-align: center;
+}
+
+.sign-in-card-body {
+    padding-left: 0 !important;
+}
+
+input {
+    padding-left: 10px !important;;
+}
+
+.login-button {
+    float: left !important;
+    position: absolute;
+    left: 47px;
+}
+
+.login-button input {
+    padding-right: 6px;
+}
+
+.remember {
+    margin-left: 5.5%;
+}
+
+.social_icon span{
+font-size: 60px;
+margin-left: 10px;
+color: #FFC312;
+}
+
+.social_icon span:hover{
+color: white;
+cursor: pointer;
+}
+
+.card-header h3{
+color: white;
+}
+
+.social_icon{
+position: absolute;
+right: 20px;
+top: -45px;
+}
+
+.input-group-prepend span{
+width: 50px;
+background-color: #FFC312;
+color: black;
+border:0 !important;
+}
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+
+.remember{
+color: white;
+}
+
+.remember input
+{
+width: 20px;
+height: 20px;
+margin-left: 15px;
+margin-right: 5px;
+}
+
+.login_btn{
+color: black;
+background-color: #FFC312;
+width: 100px;
+}
+
+.login_btn:hover{
+color: black;
+background-color: white;
+}
+
+.links{
+color: white;
+}
+
+.links a{
+margin-left: 4px;
+
+}
+
+.links a:hover,
+.forgot:hover {
+    text-decoration: underline;
+}
+
+i {
+    color: white;
+}
+
+/**
+Registration Page
+**/
+
+.divider-text {
+    position: relative;
+    text-align: center;
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+.divider-text span {
+    padding: 7px;
+    font-size: 12px;
+    position: relative;   
+    z-index: 2;
+}
+.divider-text:after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    border-bottom: 1px solid #ddd;
+    top: 55%;
+    left: 0;
+    z-index: 1;
+}

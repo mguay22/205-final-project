@@ -69,11 +69,13 @@ function getBills($thisDatabaseReader, $currentAddressId)
 }
 
 $currentToken = 'sampletoken1'; //JUST FOR TESTING
+
 //session_start();
 
 
 
 function getExpiredStatus($record){
+
 
     $expiredStatus = "";
 
@@ -150,6 +152,10 @@ function getExpiredStatus($record){
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
+
+
+                <div class="row">
+                </div>
 
 
                 <!--    BILL DISPLAY ROW    -->
@@ -288,4 +294,3 @@ function getExpiredStatus($record){
 <?php
 require_once(__DIR__ . '/templates/footer.php');
 require_once(__DIR__ . '/lib/config.php');
-
