@@ -70,17 +70,26 @@ function getBills($thisDatabaseReader, $currentAddressId)
 
 $currentToken = 'sampletoken1'; //JUST FOR TESTING
 
-
-//var_dump($_SESSION['userInfo']);
-//
-//
-//var_dump('Hello ' . $_SESSION['userInfo'][0]['fullName']);
+//session_start();
 
 
 
+function getExpiredStatus($record){
 
-echo "\n\nTEST\n\n";
-echo $_SESSION['userInfo'][0]['addressId'];
+
+    $expiredStatus = "";
+
+    $currentDate = date("Y-m-d");
+
+    if ($record['dueDate'] < $currentDate ){
+
+        $expiredStatus = "LATE";
+
+    }
+
+    return $expiredStatus;
+
+}
 
 
 ?>
@@ -109,7 +118,7 @@ echo $_SESSION['userInfo'][0]['addressId'];
                 <?php
 
                 print '<li class="nav-item">
-                    <a class="nav-link" href="bill.php">
+                    <a class="nav-link" href="addBill.php">
                         <i class="material-icons">money</i>
                         <p>Add Bill</p>
                     </a>
@@ -143,8 +152,11 @@ echo $_SESSION['userInfo'][0]['addressId'];
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
+
+
                 <div class="row">
                 </div>
+
 
                 <!--    BILL DISPLAY ROW    -->
                 <div class="row">
@@ -162,6 +174,7 @@ echo $_SESSION['userInfo'][0]['addressId'];
                     $currentAddressId = $_SESSION['userInfo'][0]['addressId'];
 
                     $records = getBills($thisDatabaseReader, $currentAddressId);
+
                     if (is_array($records)) {
                         foreach ($records as $record) {
                             print '
@@ -172,14 +185,33 @@ echo $_SESSION['userInfo'][0]['addressId'];
                                     <i class="material-icons">store</i>
                                 </div>
                                 <p class="card-category">'. $record['type'] .'</p>
-                                <h3 class="card-title">'. $record['amount'] .'</h3>
+                                <h3 class="card-title">'. '$' . number_format($record['amount'], 2)   .'</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
                                     <i class="material-icons">date_range</i> Due:
-                                    '. $record['dueDate'] .'
+                                    '. $record['dueDate'] .' 
                                 </div>
+                                
+                                <div class="expiredStatus">
+                                    
+                                    '. getExpiredStatus($record) .'
+                                
+                                </div>
+                                
+                                
                             </div>
+                           
+                            <div class="card-footer">
+                            
+                                
+                                
+                                <div class="file"> 
+                                <a href="file/' .$record['fileName'].'       ">View Bill</a>                      
+                                </div>
+                            
+                            </div>
+                            
                         </div>
                     </div>';
                         }
@@ -262,4 +294,3 @@ echo $_SESSION['userInfo'][0]['addressId'];
 <?php
 require_once(__DIR__ . '/templates/footer.php');
 require_once(__DIR__ . '/lib/config.php');
-

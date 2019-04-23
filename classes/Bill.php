@@ -23,9 +23,7 @@ class Bill
     }
 
 
-    public function addBill() {
-
-
+    public function addBill($userInfo) {
 
         if ( !( isset($_POST['btnSubmit'] ) ) || !( $this->validateFormSubmission() )) {
             return false;
@@ -38,11 +36,16 @@ class Bill
                echo"Uploaded";
                $this->fileName = $_FILES['fileName']['name'];
            }
+           else{
+               $this->fileName = "noImage.php";
+           }
         }
 
         $formInfo = $this->collectFormSubmission();
 
-        if (!$this->saveToDatabase($formInfo)) {
+
+
+        if (!$this->saveToDatabase($formInfo, $userInfo)) {
             return false;
         }
 
@@ -63,9 +66,9 @@ class Bill
         return $formInfo;
     }
 
-    private function saveToDatabase($formInfo) {
+    private function saveToDatabase($formInfo, $userInfo) {
 
-        if (!$this->insertIntoDb($formInfo)) {
+        if (!$this->insertIntoDb($formInfo, $userInfo)) {
             $this->handleError("Inserting to Database failed!");
             return false;
         }
@@ -74,7 +77,10 @@ class Bill
     }
 
 
-    private function insertIntoDb($formInfo) {
+    private function insertIntoDb($formInfo, $userInfo) {
+
+        $addressId = $userInfo[0]['addressId'];
+
         $query = 'INSERT INTO bill SET ';
         $query .= 'id = ?, ';
         $query .= 'type = ?, ';
@@ -88,7 +94,7 @@ class Bill
             NULL, // id sample should be pulled from session
             $this->sanitizeForSQL($formInfo['type']),
             $this->sanitizeForSQL($formInfo['dueDate']),
-            1, //addressID sample should be pulled from session
+            $addressId, //addressID sample should be pulled from session
             $this->sanitizeForSQL($this->fileName),
             $this->sanitizeForSQL($formInfo['amount'])
         );
