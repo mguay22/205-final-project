@@ -7,16 +7,19 @@ require_once('lib/config.php');
 session_start();
 
 var_dump($_SESSION['userInfo']);
-
-var_dump($_POST['householdCode']);
+var_dump($_POST);
 
 if (!isset($_SESSION['userInfo'])) {
     $auth->redirect('index.php');
 }
 
-if (isset($_POST['householdCode'])) {
-    $registerUserSuccess = $auth->registerExistingHousehold($_POST['householdCode'], $_SESSION['userInfo']);
+$addressId = $_POST['addressId'];
+
+if (isset($_POST['addressId'])) {
+    $registerUserSuccess = $auth->registerExistingHousehold($addressId, $_SESSION['userInfo']);
     if ($registerUserSuccess) {
+        $_SESSION['userInfo'][0]['addressId'] = $addressId;
+        $_SESSION['userInfo'][0]['status'] = 'standard';
         $auth->redirect('dashboard.php');
     } else {
         var_dump('Invalid household code!');
@@ -29,7 +32,7 @@ if (isset($_POST['householdCode'])) {
         <h2>Are you registering as a new user, or with an existing household?</h1>
     </div>
 </div>
-
+ 
 <div id="household-buttons" class="row text-center">
     <div class="col-md-6">
         <a href="household-new"><button class="btn btn-primary">New Household</a>
@@ -42,7 +45,7 @@ if (isset($_POST['householdCode'])) {
 <form method="POST" name="household-code-form" action="address.php" id="household-code-form" style="display: none;">
     <div class="form-group">
         <label for="householdCodeInput">Household Code</label>
-        <input type="text" class="form-control" id="householdCodeInput" name="householdCode" placeholder="Enter Code">
+        <input type="text" class="form-control" id="householdCodeInput" name="addressId" placeholder="Enter Code">
         <small id="householdCodeHelp" class="form-text text-muted">Enter the household code for your address, provided by the house admin</small>
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
