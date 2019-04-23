@@ -36,6 +36,9 @@ class Bill
                echo"Uploaded";
                $this->fileName = $_FILES['fileName']['name'];
            }
+           else{
+               $this->fileName = "noImage.php";
+           }
         }
 
         $formInfo = $this->collectFormSubmission();

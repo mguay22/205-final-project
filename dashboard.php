@@ -101,7 +101,7 @@ $currentToken = 'sampletoken1'; //JUST FOR TESTING
                 <?php
 
                 print '<li class="nav-item">
-                    <a class="nav-link" href="bill.php">
+                    <a class="nav-link" href="addBill.php">
                         <i class="material-icons">money</i>
                         <p>Add Bill</p>
                     </a>
@@ -169,6 +169,10 @@ $currentToken = 'sampletoken1'; //JUST FOR TESTING
                                 <div class="stats">
                                     <i class="material-icons">date_range</i> Due:
                                     '. $record['dueDate'] .'
+                                </div>
+                                <div class="file"> 
+                                <a href="file/' .$record['fileName'].'       ">View Bill</a>
+                                
                                 </div>
                             </div>
                         </div>
