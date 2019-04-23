@@ -37,7 +37,7 @@ if (isset($_POST['addressId'])) {
         <?php } ?>
         <div id="household-buttons" class="row text-center">
             <div class="col-md-6">
-                <a href="household-new"><button class="btn btn-primary">New Household</a>
+                <a href="household-new.php"><button class="btn btn-primary">New Household</a>
             </div>
             <div class="col-md-6">
                 <button id="existing-household" class="btn btn-primary">Existing Household

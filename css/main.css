@@ -21,18 +21,10 @@ text-align: center;
     padding-left: 0 !important;
 }
 
-input {
-    padding-left: 10px !important;
-}
-
 .login-button {
     float: left !important;
     position: absolute;
     left: 47px;
-}
-
-.login-button input {
-    padding-right: 6px;
 }
 
 .remember {

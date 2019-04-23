@@ -15,7 +15,6 @@ $additionalInfo = "";
 $fileName= "";
 $billTypeEr = $amountEr = $dueDateEr =  "";
 
-/*if ($_SERVER["REQUEST_METHOD"] == "POST") {*/
 $bill = new Bill($thisDatabaseReader, $thisDatabaseWriter);
 
 session_start();
