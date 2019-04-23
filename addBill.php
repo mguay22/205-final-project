@@ -16,10 +16,13 @@ $fileName= "";
 $billTypeEr = $amountEr = $dueDateEr =  "";
 
 /*if ($_SERVER["REQUEST_METHOD"] == "POST") {*/
+$bill = new Bill($thisDatabaseReader, $thisDatabaseWriter);
 
+session_start();
+$userInfo = $_SESSION['userInfo'];
 
 if (isset($_POST['btnSubmit'])) {
-    if ($bill->addBill()) {
+    if ($bill->addBill($userInfo)) {
         $bill->redirect('dashboard.php');
     } else {
         var_dump($bill->errorMessage);

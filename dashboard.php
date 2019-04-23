@@ -69,19 +69,10 @@ function getBills($thisDatabaseReader, $currentAddressId)
 }
 
 $currentToken = 'sampletoken1'; //JUST FOR TESTING
-session_start(); 
-
-
-//var_dump($_SESSION['userInfo']);
-//
-//
-//var_dump('Hello ' . $_SESSION['userInfo'][0]['fullName']);
+//session_start();
 
 
 
-
-echo "\n\nTEST\n\n";
-echo $_SESSION['userInfo'][0]['addressId'];
 
 
 ?>
@@ -144,9 +135,7 @@ echo $_SESSION['userInfo'][0]['addressId'];
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
-                <div class="row">
-                    <?php var_dump($_SESSION['userInfo']); ?>
-                </div>
+
 
                 <!--    BILL DISPLAY ROW    -->
                 <div class="row">
@@ -174,7 +163,7 @@ echo $_SESSION['userInfo'][0]['addressId'];
                                     <i class="material-icons">store</i>
                                 </div>
                                 <p class="card-category">'. $record['type'] .'</p>
-                                <h3 class="card-title">'. $record['amount'] .'</h3>
+                                <h3 class="card-title">'. '$' . number_format($record['amount'], 2)   .'</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
