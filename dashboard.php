@@ -73,6 +73,21 @@ $currentToken = 'sampletoken1'; //JUST FOR TESTING
 
 
 
+function getExpiredStatus($record){
+
+    $expiredStatus = "";
+
+    $currentDate = date("Y-m-d");
+
+    if ($record['dueDate'] < $currentDate ){
+
+        $expiredStatus = "LATE";
+
+    }
+
+    return $expiredStatus;
+
+}
 
 
 ?>
@@ -153,6 +168,7 @@ $currentToken = 'sampletoken1'; //JUST FOR TESTING
                     $currentAddressId = $_SESSION['userInfo'][0]['addressId'];
 
                     $records = getBills($thisDatabaseReader, $currentAddressId);
+
                     if (is_array($records)) {
                         foreach ($records as $record) {
                             print '
@@ -168,13 +184,28 @@ $currentToken = 'sampletoken1'; //JUST FOR TESTING
                             <div class="card-footer">
                                 <div class="stats">
                                     <i class="material-icons">date_range</i> Due:
-                                    '. $record['dueDate'] .'
+                                    '. $record['dueDate'] .' 
                                 </div>
-                                <div class="file"> 
-                                <a href="file/' .$record['fileName'].'       ">View Bill</a>
+                                
+                                <div class="expiredStatus">
+                                    
+                                    '. getExpiredStatus($record) .'
                                 
                                 </div>
+                                
+                                
                             </div>
+                           
+                            <div class="card-footer">
+                            
+                                
+                                
+                                <div class="file"> 
+                                <a href="file/' .$record['fileName'].'       ">View Bill</a>                      
+                                </div>
+                            
+                            </div>
+                            
                         </div>
                     </div>';
                         }
