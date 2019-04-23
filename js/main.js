@@ -22,7 +22,13 @@ if (registerForm) {
 const existingHouseholdButton = document.getElementById('existing-household');
 const householdCodeForm = document.getElementById('household-code-form');
 const householdButtons = document.getElementById('household-buttons');
+const backAddressButton = document.querySelector('.back-address');
 existingHouseholdButton.addEventListener('click', () => {
     householdCodeForm.style.display = 'block';
     householdButtons.style.display = 'none';
+})
+backAddressButton.addEventListener('click', () => {
+    console.log('clicked');
+    householdCodeForm.style.display = 'none';
+    householdButtons.style.display = 'flex';
 })

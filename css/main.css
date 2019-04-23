@@ -9,12 +9,17 @@ width: 800px;
 text-align: center;
 }
 
+.error-message h4 {
+    color: red;
+    text-align: center;
+}
+
 .sign-in-card-body {
     padding-left: 0 !important;
 }
 
 input {
-    padding-left: 10px !important;;
+    padding-left: 10px !important;
 }
 
 .login-button {

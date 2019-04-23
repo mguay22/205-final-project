@@ -2,11 +2,13 @@
 require_once(__DIR__ . '/templates/top.php');
 require_once('lib/config.php');
 
+$loginError = false;
+
 if (isset($_POST['submitted'])) {
     if ($auth->loginUser()) {
         $auth->redirect('dashboard.php');
     } else {
-        var_dump($auth->errorMessage);
+        $loginError = true;
     }
 }
 ?>
@@ -16,7 +18,10 @@ if (isset($_POST['submitted'])) {
 		<div class="card sign-in-card">
 			<div class="card-header">
 				<h3>Sign In</h3>
-			</div>
+            </div>
+            <?php if ($loginError) { ?>
+                <div class="error-message"><h4>Username or password is incorrect. Please try again.</h4></div>
+            <?php } ?>
 			<div class="card-body sign-in-card-body">
 				<form id="login" action="index.php" method="POST" accept-charset="UTF-8">
                     <input type="hidden" name="submitted" id="submitted"value="1"/>
@@ -37,7 +42,7 @@ if (isset($_POST['submitted'])) {
 						<input type="checkbox">Remember Me
 					</div> -->
 					<div class="form-group login-button">
-						<input type="submit" value="Login" class="btn float-right login_btn">
+						<input type="submit" value="Login" class="btn float-right login_btn btn btn-primary">
 					</div>
 				</form>
 			</div>
