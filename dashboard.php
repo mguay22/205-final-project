@@ -106,6 +106,7 @@ function getExpiredStatus($record){
 <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
         <div class="logo">
+            <img src="assets/img/logo.png" alt="Bill Buddy Logo">
             <a href="dashboard.php" class="simple-text logo-normal">
                 <?php print  $_SESSION['userInfo'][0]['fullName'] . ' | ' . $_SESSION['userInfo'][0]['status'] ?>
             </a>
@@ -139,8 +140,6 @@ function getExpiredStatus($record){
                 }
 
                 ?>
-
-
 
             </ul>
         </div>
