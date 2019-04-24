@@ -1,4 +1,10 @@
 <?php
+/**
+ * dashboard.php retrieves user info from current PHP Session
+ * and uses this info to display bills associated with a user's
+ * address. User's also have access to different functionality
+ * based on their status (admin || standard)
+ */
 require_once(__DIR__ . '/templates/top.php');
 require_once(__DIR__ . '/lib/config.php');
 
@@ -95,19 +101,13 @@ function getExpiredStatus($record){
 
 }
 
-
 ?>
 
 <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
-        <!--
-          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-          Tip 2: you can also add an image using data-image tag
-      -->
         <div class="logo">
-            <a href="#" class="simple-text logo-normal">
-                Bill Buddy
+            <a href="dashboard.php" class="simple-text logo-normal">
+                <?php print  $_SESSION['userInfo'][0]['fullName'] . ' | ' . $_SESSION['userInfo'][0]['status'] ?>
             </a>
         </div>
         <div class="sidebar-wrapper">
@@ -123,6 +123,9 @@ function getExpiredStatus($record){
 
                 $currentStatus = $_SESSION['userInfo'][0]['status'];
 
+                /**
+                 * If User is Admin, show addBill.php nav item
+                 */
                 if ($currentStatus == 'admin') {
 
                     print '    
@@ -133,7 +136,6 @@ function getExpiredStatus($record){
                              </a>
                          </li>
                          ';
-
                 }
 
                 ?>
@@ -146,11 +148,10 @@ function getExpiredStatus($record){
 
     <div class="main-panel">
         <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
+        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
-                    <a class="navbar-brand" href="index.php">Logout</a>
+                    <a class="navbar-brand" href="javascript:void(0)">Current Bills</a>
                 </div>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
@@ -168,7 +169,9 @@ function getExpiredStatus($record){
                                 </p>
                             </a>
                         </li>
+
                         <!-- your navbar here -->
+
                     </ul>
                 </div>
             </div>
@@ -177,23 +180,13 @@ function getExpiredStatus($record){
         <div class="content">
             <div class="container-fluid">
 
-
-                <div class="row">
-                </div>
-
-
                 <!--    BILL DISPLAY ROW    -->
                 <div class="row">
 
                     <?php
-
-//                    $records = getAddressID($thisDatabaseReader, $currentToken);
-//                    $currentAddressId = '';
-//                    if (is_array($records)) {
-//                        foreach ($records as $record) {
-//                            $currentAddressId = $record['addressId'];
-//                            }
-//                    }
+                    /**
+                     * Display bills based on different types
+                     */
 
                     $currentAddressId = $_SESSION['userInfo'][0]['addressId'];
 
@@ -285,7 +278,7 @@ function getExpiredStatus($record){
 
             </div>
         </div>
-        <footer class="footer">
+        <section class="footer">
             <div class="container-fluid">
                 <nav class="float-left">
                     <ul>
@@ -316,7 +309,7 @@ function getExpiredStatus($record){
                     Bill Buddy Inc.
                 </div>
             </div>
-        </footer>
+        </section>
         <script>
             const x = new Date().getFullYear();
             let date = document.getElementById('date');
@@ -324,28 +317,7 @@ function getExpiredStatus($record){
         </script>
     </div>
 </div>
-<!--   Core JS Files   -->
-<script src="assets/js/core/jquery.min.js"></script>
-<script src="assets/js/core/popper.min.js"></script>
-<script src="assets/js/core/bootstrap-material-design.min.js"></script>
-<script src="https://unpkg.com/default-passive-events"></script>
-<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!-- Chartist JS -->
-<script src="assets/js/plugins/chartist.min.js"></script>
-<!--  Notifications Plugin    -->
-<script src="assets/js/plugins/bootstrap-notify.js"></script>
-<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="assets/js/material-dashboard.js?v=2.1.0"></script>
 
-<script>
-
-
-
-</script>
 
 <?php
 require_once(__DIR__ . '/templates/footer.php');
