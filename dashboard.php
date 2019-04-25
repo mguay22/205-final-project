@@ -173,7 +173,7 @@ function getExpiredStatus($record){
             <div class="container-fluid">
 
                 <!--    BILL DISPLAY ROW    -->
-                <div class="row">
+                <div class="row" id="bills">
 
                     <?php
                     /**
@@ -247,12 +247,7 @@ function getExpiredStatus($record){
                                 </div>
                                 
                                
-                                <div class ="delete">
-                                    <form>
-                                        <input type="hidden" id="billID" name="billID" value="'.$billId .'">
-                                        <input type="submit" id="btnDel" name="btnDel" value="Del">
-                                    </form>
-                                </div>
+                                
                                 
                                 
                             </div>
@@ -263,8 +258,19 @@ function getExpiredStatus($record){
                                 
                                 <div class="file"> 
                                 <a href="file/' .$record['fileName'].'       ">View Bill</a>                      
-                                </div>
+                                </div>';
+                                
+                            if ($currentStatus == 'admin') {
+                                print   '
+                                <div class ="delete">
+                                    <form>
+                                        <input type="hidden" id="billID" name="billID" value="' . $billId . '">
+                                        <input class="btn btn-danger" type="submit" id="btnDel" name="btnDel" value="Delete">
+                                    </form>
+                                </div>';
+                            };
                             
+                          print '
                             </div>
                             
                         </div>
@@ -330,10 +336,11 @@ function getExpiredStatus($record){
                 </div>
             </div>
         </section>
-        <script>
+        <script type="text/javascript" language="javascript">
             const x = new Date().getFullYear();
             let date = document.getElementById('date');
             date.innerHTML = '&copy; ' + x + date.innerHTML;
+
         </script>
     </div>
 </div>
