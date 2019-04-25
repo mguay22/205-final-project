@@ -184,11 +184,13 @@ function getExpiredStatus($record){
 
                     $records = getBills($thisDatabaseReader, $currentAddressId);
 
+
                     if (is_array($records)) {
                         foreach ($records as $record) {
                             $type = $record['type'];
                             $amount = $record['amount'];
                             $dueDate = $record['dueDate'];
+                            $billId = $record[0];
                             $typeColor = 'success';
                             $typeIcon = 'house';
 
@@ -243,9 +245,11 @@ function getExpiredStatus($record){
                                     '. getExpiredStatus($record) .'
                                 
                                 </div>
+                                
+                               
                                 <div class ="delete">
                                     <form>
-                                        <input type="hidden" id="billID" name="billID" value="'.record['id'].'">
+                                        <input type="hidden" id="billID" name="billID" value="'.$billId .'">
                                         <input type="submit" id="btnDel" name="btnDel" value="Del">
                                     </form>
                                 </div>
@@ -269,12 +273,21 @@ function getExpiredStatus($record){
                     }
                     if(isset($_GET["btnDel"])){
                         $id = $_GET["billID"];
+
+                        $data = array();
+                        $data[] = $id;
                         $query = "DELETE FROM bill ";
                         $query .= "WHERE ";
-                        $query .= "id = ";
-                        $query .= $id;
-                        echo $query;
-                        //echo '<meta http-equiv="refresh"/>';
+                        $query .= "id = ?";
+
+
+                        if ($thisDatabaseWriter->querySecurityOk($query, 1, 0)) {
+                            $query = $thisDatabaseWriter->sanitizeQuery($query);
+                            $records = $thisDatabaseWriter->delete($query, $data);
+                        }
+                        
+
+                        echo '<meta http-equiv="refresh"/>';
                     }
                     
 
