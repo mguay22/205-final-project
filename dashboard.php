@@ -243,6 +243,12 @@ function getExpiredStatus($record){
                                     '. getExpiredStatus($record) .'
                                 
                                 </div>
+                                <div class ="delete">
+                                    <form>
+                                        <input type="hidden" id="billID" name="billID" value="'.record['id'].'">
+                                        <input type="submit" id="btnDel" name="btnDel" value="Del">
+                                    </form>
+                                </div>
                                 
                                 
                             </div>
@@ -261,7 +267,16 @@ function getExpiredStatus($record){
                     </div>';
                         }
                     }
-
+                    if(isset($_GET["btnDel"])){
+                        $id = $_GET["billID"];
+                        $query = "DELETE FROM bill ";
+                        $query .= "WHERE ";
+                        $query .= "id = ";
+                        $query .= $id;
+                        echo $query;
+                        //echo '<meta http-equiv="refresh"/>';
+                    }
+                    
 
                     ?>
 
