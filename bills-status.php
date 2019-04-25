@@ -17,10 +17,11 @@ $userId=$_SESSION['userInfo'][0]['id'];
 
 if(isset($_GET['billId'])){
     $billId=$_GET['billId'];
-    confirmBill($billId);
+    confirmBill($billId, $thisDatabaseReader, $thisDatabaseWriter);
 }
 
-function getUserBills(){
+function getUserBills($userId, $thisDatabaseReader){
+
     $data = array($userId);
     $query = 'SELECT * ';
     $query .= 'FROM USER_BILL_RLT ';
@@ -30,8 +31,8 @@ function getUserBills(){
 
     $bills=array();
     foreach ($records as $record) {
-        $bill=getBillById($record['billId']);
-        $address=getAddressById($bill['addressId']);
+        $bill=getBillById($record['billId'], $thisDatabaseReader);
+        $address=getAddressById($bill['addressId'], $thisDatabaseReader);
         $addInfo=$address['houseNumber'].' '.$address['street'].' '.$address['unitNumber'].' '.$address['zip'].' '.$address['city'].' '.$address['state'];
         $bill['status']=$record['status'];
         $bill['addInfo']=$addInfo;
@@ -40,7 +41,7 @@ function getUserBills(){
     return $bills;
 }
 
-function getBillById($billId){
+function getBillById($billId, $thisDatabaseReader){
     $data = array($billId);
     $query = 'SELECT * ';
     $query .= 'FROM BILL ';
@@ -51,7 +52,7 @@ function getBillById($billId){
 }
 
 
-function getAddressById($addressId){
+function getAddressById($addressId, $thisDatabaseReader){
     $data = array($addressId);
     $query = 'SELECT * ';
     $query .= 'FROM ADDRESS ';
@@ -61,7 +62,7 @@ function getAddressById($addressId){
     return $records[0];
 }
 
-function confirmBill($billId){
+function confirmBill($billId, $thisDatabaseReader, $thisDatabaseWriter){
     $data=array($billId);
     $query=' DELETE FROM USER_BILL_RLT WHERE billId= ? ';
     $query = $thisDatabaseReader->sanitizeQuery($query);
@@ -88,7 +89,7 @@ function confirmBill($billId){
             <td></td>
         </tr>
         <?php
-            $bills=getUserBills();
+            $bills=getUserBills($userId, $thisDatabaseReader);
             foreach ($bills as $bill) {
                 print '
                 <tr>
