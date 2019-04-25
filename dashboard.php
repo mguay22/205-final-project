@@ -1,4 +1,10 @@
 <?php
+/**
+ * dashboard.php retrieves user info from current PHP Session
+ * and uses this info to display bills associated with a user's
+ * address. User's also have access to different functionality
+ * based on their status (admin || standard)
+ */
 require_once(__DIR__ . '/templates/top.php');
 require_once(__DIR__ . '/lib/config.php');
 
@@ -87,23 +93,22 @@ function getExpiredStatus($record){
 
     }
 
+    elseif ($record['dueDate'] == $currentDate){
+        $expiredStatus = "DUE";
+    }
+
     return $expiredStatus;
 
 }
-
 
 ?>
 
 <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
-        <!--
-          Tip 1: You can change the color of the sidebar using: data-color="purple | azure | green | orange | danger"
-
-          Tip 2: you can also add an image using data-image tag
-      -->
         <div class="logo">
-            <a href="#" class="simple-text logo-normal">
-                Bill Buddy
+            <img src="assets/img/logo.png" alt="Bill Buddy Logo">
+            <a href="dashboard.php" class="simple-text logo-normal">
+                <?php print  $_SESSION['userInfo'][0]['fullName'] . ' | ' . $_SESSION['userInfo'][0]['status'] ?>
             </a>
         </div>
         <div class="sidebar-wrapper">
@@ -117,59 +122,70 @@ function getExpiredStatus($record){
 
                 <?php
 
-                print '<li class="nav-item">
-                    <a class="nav-link" href="addBill.php">
-                        <i class="material-icons">money</i>
-                        <p>Add Bill</p>
-                    </a>
-                </li>';
+                $currentStatus = $_SESSION['userInfo'][0]['status'];
+
+                /**
+                 * If User is Admin, show addBill.php nav item
+                 */
+                if ($currentStatus == 'admin') {
+
+                    print '    
+                        <li class="nav-item">
+                             <a class="nav-link" href="addBill.php">
+                                <i class="material-icons">money</i>
+                                <p>Add Bill</p>
+                             </a>
+                         </li>
+                         ';
+                }
 
                 ?>
-
-
 
             </ul>
         </div>
     </div>
+
     <div class="main-panel">
         <!-- Navbar -->
         <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
             <div class="container-fluid">
                 <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="javascript:void(0)">Dashboard</a>
-                    <a class="navbar-brand" href="index.php">Logout</a>
-                    </form>
+                    <a class="navbar-brand" href="javascript:void(0)">Current Bills</a>
                 </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index"
-                        aria-expanded="false" aria-label="Toggle navigation" data-target="#navigation-example">
+                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="sr-only">Toggle navigation</span>
                     <span class="navbar-toggler-icon icon-bar"></span>
                     <span class="navbar-toggler-icon icon-bar"></span>
                     <span class="navbar-toggler-icon icon-bar"></span>
                 </button>
+                <div class="collapse navbar-collapse justify-content-end">
+                    <ul class="navbar-nav">
+                        <li class="nav-item">
+                            <a class="nav-link" href="javascript:void(0)">
+                                <i class="material-icons">notifications</i>
+                                <p class="d-lg-none d-md-block">
+                                    Notifications
+                                </p>
+                            </a>
+                        </li>
+
+                        <!-- your navbar here -->
+
+                    </ul>
+                </div>
             </div>
         </nav>
         <!-- End Navbar -->
         <div class="content">
             <div class="container-fluid">
 
-
-                <div class="row">
-                </div>
-
-
                 <!--    BILL DISPLAY ROW    -->
                 <div class="row">
 
                     <?php
-
-//                    $records = getAddressID($thisDatabaseReader, $currentToken);
-//                    $currentAddressId = '';
-//                    if (is_array($records)) {
-//                        foreach ($records as $record) {
-//                            $currentAddressId = $record['addressId'];
-//                            }
-//                    }
+                    /**
+                     * Display bills based on different types
+                     */
 
                     $currentAddressId = $_SESSION['userInfo'][0]['addressId'];
 
@@ -177,20 +193,56 @@ function getExpiredStatus($record){
 
                     if (is_array($records)) {
                         foreach ($records as $record) {
+                            $type = $record['type'];
+                            $amount = $record['amount'];
+                            $dueDate = $record['dueDate'];
+                            $typeColor = 'success';
+                            $typeIcon = 'house';
+
+                            if($type == 'rent'){
+                                $typeColor = 'success';
+                                $typeIcon = 'house';
+                            }
+
+                            elseif ($type == 'water'){
+                                $typeColor = 'info';
+                                $typeIcon = 'pool';
+                            }
+
+                            elseif ($type == 'gas'){
+                                $typeColor = 'warning';
+                                $typeIcon = 'local_gas_station';
+                            }
+
+                            elseif ($type == 'electric'){
+                                $type = 'elec.';
+                                $typeColor = 'basic';
+                                $typeIcon = 'wb_incandescent';
+                            }
+
+                            elseif ($type == 'wifi'){
+                                $typeColor = 'default';
+                                $typeIcon = 'wifi';
+                            }
+
+                            elseif ($type == 'other'){
+                                $typeColor = 'default';
+                                $typeIcon = 'web_asset';
+                            }
                             print '
                     <div class="col-xl-3 col-lg-6 col-md-6 col-sm-6">
                         <div class="card card-stats">
-                            <div class="card-header card-header-success card-header-icon">
+                            <div class="card-header card-header-'. $typeColor .' card-header-icon">
                                 <div class="card-icon">
-                                    <i class="material-icons">store</i>
+                                    <i class="material-icons">'. $typeIcon .'</i>
                                 </div>
-                                <p class="card-category">'. $record['type'] .'</p>
-                                <h3 class="card-title">'. '$' . number_format($record['amount'], 2)   .'</h3>
+                                <p class="card-category">'. $type .'</p>
+                                <h3 class="card-title">'. '$' . number_format($amount, 2)   .'</h3>
                             </div>
                             <div class="card-footer">
                                 <div class="stats">
                                     <i class="material-icons">date_range</i> Due:
-                                    '. $record['dueDate'] .' 
+                                    '. $dueDate .' 
                                 </div>
                                 
                                 <div class="expiredStatus">
@@ -204,7 +256,7 @@ function getExpiredStatus($record){
                            
                             <div class="card-footer">
                             
-                                
+                     
                                 
                                 <div class="file"> 
                                 <a href="file/' .$record['fileName'].'       ">View Bill</a>                      
@@ -225,7 +277,7 @@ function getExpiredStatus($record){
 
             </div>
         </div>
-        <footer class="footer">
+        <section class="footer">
             <div class="container-fluid">
                 <nav class="float-left">
                     <ul>
@@ -256,7 +308,7 @@ function getExpiredStatus($record){
                     Bill Buddy Inc.
                 </div>
             </div>
-        </footer>
+        </section>
         <script>
             const x = new Date().getFullYear();
             let date = document.getElementById('date');
@@ -264,33 +316,8 @@ function getExpiredStatus($record){
         </script>
     </div>
 </div>
-<!--   Core JS Files   -->
-<script src="assets/js/core/jquery.min.js"></script>
-<script src="assets/js/core/popper.min.js"></script>
-<script src="assets/js/core/bootstrap-material-design.min.js"></script>
-<script src="https://unpkg.com/default-passive-events"></script>
-<script src="assets/js/plugins/perfect-scrollbar.jquery.min.js"></script>
-<!-- Place this tag in your head or just before your close body tag. -->
-<script async defer src="https://buttons.github.io/buttons.js"></script>
-<!--  Google Maps Plugin    -->
-<script src="https://maps.googleapis.com/maps/api/js?key=YOUR_KEY_HERE"></script>
-<!-- Chartist JS -->
-<script src="assets/js/plugins/chartist.min.js"></script>
-<!--  Notifications Plugin    -->
-<script src="assets/js/plugins/bootstrap-notify.js"></script>
-<!-- Control Center for Material Dashboard: parallax effects, scripts for the example pages etc -->
-<script src="assets/js/material-dashboard.js?v=2.1.0"></script>
-<!-- Material Dashboard DEMO methods, don't include it in your project! -->
-<script src="assets/demo/demo.js"></script>
-<script>
 
-    $(document).ready(function () {
-        // Javascript method's body can be found in assets/js/demos.js
-        md.initDashboardPageCharts();
-    });
 
-</script>
-</body>
 <?php
 require_once(__DIR__ . '/templates/footer.php');
 require_once(__DIR__ . '/lib/config.php');
