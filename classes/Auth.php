@@ -29,6 +29,26 @@ class Auth {
         }
     }
 
+    public function validateUserStatusAddress() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['userInfo'])) {
+            $this->redirect('index.php');
+        }
+    }
+
+    public function getUserAddressId($address) {
+        $addressId = $this->queryAddressId($address);
+
+        if (!$addressId) {
+            return false;
+        }
+
+        return $addressId;
+    }
+
     public function registerUser() {
         $this->tableName = 'user';
 
@@ -146,6 +166,22 @@ class Auth {
         }
 
         return true;
+    }
+
+    private function queryAddressId($address) {
+        $query = "select id from address where address = ?";
+
+        $queryArray = array(
+            $address
+        );
+
+        $result = $this->databaseWriter->select($query, $queryArray);
+
+        if (!$result || sizeof($result) == 0) {
+            return false;
+        }
+
+        return $result;
     }
 
     private function updateUserAddressId($addressId, $username) {

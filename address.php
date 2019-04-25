@@ -5,7 +5,7 @@ require_once('lib/config.php');
 
 <?php
 session_start();
-$auth->validateUserStatus();
+$auth->validateUserStatusAddress();
 
 $invalidAddressId = false;
 
