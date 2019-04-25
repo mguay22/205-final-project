@@ -1,5 +1,6 @@
 const registerForm = document.getElementById("register");
 const loginForm = document.getElementById("login");
+const addressForm = document.getElementById("new-address");
 let formValidator;
 
 if (registerForm) {
@@ -17,6 +18,14 @@ if (registerForm) {
     formValidator.EnableMsgsTogether();
     formValidator.addValidation("username", "req", "Please provide a username");
     formValidator.addValidation("password", "req", "Please provide a password");
+} else if (addressForm) {
+    formValidator = new Validator("new-address");
+    formValidator.EnableOnPageErrorDisplay();
+    formValidator.EnableMsgsTogether();
+    formValidator.addValidation("address", "req", "Please provide an address");
+    formValidator.addValidation("zip-code", "req", "Please provide a zip code");
+    formValidator.addValidation("city", "req", "Please provide a city");
+    formValidator.addValidation("state", "req", "Please provide a state");
 }
 
 const existingHouseholdButton = document.getElementById('existing-household');
@@ -28,7 +37,6 @@ existingHouseholdButton.addEventListener('click', () => {
     householdButtons.style.display = 'none';
 })
 backAddressButton.addEventListener('click', () => {
-    console.log('clicked');
     householdCodeForm.style.display = 'none';
     householdButtons.style.display = 'flex';
 })

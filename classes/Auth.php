@@ -14,6 +14,8 @@ class Auth {
     }
 
     public function registerUser() {
+        $this->tableName = 'user';
+
         if (!(isset($_POST['submitted'])) || !($this->validateFormSubmission())) {
             return false;
         }
@@ -26,6 +28,7 @@ class Auth {
 
         $_POST['username'] = $formInfo['username'];
         $_POST['password'] = $formInfo['password'];
+        
         if (!$this->loginUser()) {
             return false;
         }
@@ -34,7 +37,19 @@ class Auth {
     }
 
     public function registerNewHousehold() {
+        $this->tableName = 'address';
 
+        if (!(isset($_POST['submitted'])) || !($this->validateAddressFormSubmission())) {
+            return false;
+        }
+
+        $formInfo = $this->collectAddressFormSubmission();
+
+        if (!$this->saveNewAddressToDatabase($formInfo)) {
+            return false;
+        }
+
+        return true;
     }
 
     public function registerExistingHousehold($addressId, $userInfo) {
@@ -78,6 +93,27 @@ class Auth {
             return false;
         }
                 
+        return true;
+    }
+
+    private function validateAddressFormSubmission() {
+        $validator = new FormValidator();
+        $validator->addValidation("address", "req", "Please fill in address");
+        $validator->addValidation("zip-code", "req", "Please fill in zip code");
+        $validator->addValidation("city", "req", "Please fill in city");
+        $validator->addValidation("state", "req", "Please fill in state");
+        
+        if(!$validator->ValidateForm()) {
+            $error = '';
+            $errorHash = $validator->GetErrors();
+            foreach ($errorHash as $inputName => $inputError) {
+                $error .= $inputName . ':' . $inputError . "\n";
+            }
+
+            $this->handleError($error);
+            return false;
+        }
+        
         return true;
     }
 
@@ -138,6 +174,18 @@ class Auth {
         return true;
     }
 
+    private function collectAddressFormSubmission() {
+        $formInfo = array();
+
+        $formInfo['address'] = $this->sanitize($_POST['address']);
+        $formInfo['unit-number'] = $this->sanitize($_POST['unit-number']);
+        $formInfo['zip-code'] = $this->sanitize($_POST['zip-code']);
+        $formInfo['city'] = $this->sanitize($_POST['city']);
+        $formInfo['state'] = $this->sanitize($_POST['state']);
+
+        return $formInfo;
+    }
+
     private function collectFormSubmission() {
         $formInfo = array();
 
@@ -147,6 +195,15 @@ class Auth {
         $formInfo['password'] = $this->sanitize($_POST['password']);
 
         return $formInfo;
+    }
+
+    private function saveNewAddressToDatabase($formInfo) {
+        if (!$this->insertNewAddressIntoDb($formInfo)) {
+            $this->handleError("Inserting to Database failed!");
+            return false;
+        }
+
+        return true;
     }
 
     private function saveToDatabase($formInfo) {
@@ -166,6 +223,25 @@ class Auth {
         }
 
         return true;
+    }
+
+    private function insertNewAddressIntoDb($formInfo) {
+        $query = 'insert into address set ';
+        $query .= 'address = ?, ';
+        $query .= 'unitNumber = ?, ';
+        $query .= 'zip = ?, ';
+        $query .= 'city = ?, ';
+        $query .= 'state = ?';
+
+        $values = array(
+            $this->sanitizeForSQL($formInfo['address']),
+            $this->sanitizeForSQL($formInfo['unit-number']),
+            $this->sanitizeForSQL($formInfo['zip-code']),
+            $this->sanitizeForSQL($formInfo['city']),
+            $this->sanitizeForSQL($formInfo['state']),
+        );
+
+        return $this->databaseWriter->insert($query, $values);
     }
 
     private function insertIntoDb($formInfo) {

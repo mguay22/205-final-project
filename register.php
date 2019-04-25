@@ -5,7 +5,7 @@ require_once('lib/config.php');
 $registrationError = false;
 
 if (isset($_POST['submitted'])) {
-    if ($auth->registerUser()) {
+    if ($auth->registerNewHousehold()) {
         session_start();
         $auth->redirect('address.php');
     } else {
