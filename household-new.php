@@ -4,9 +4,7 @@ require_once(__DIR__ . '/lib/config.php');
 
 session_start();
 
-if (!isset($_SESSION['userInfo'])) {
-    $auth->redirect('index.php');
-}
+$auth->validateUserStatus();
 
 $addressError = false;
 

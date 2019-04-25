@@ -13,6 +13,22 @@ class Auth {
         $this->databaseWriter = $databaseWriter;
     }
 
+    public function validateUserStatus() {
+        if (session_status() == PHP_SESSION_NONE) {
+            session_start();
+        }
+
+        if (!isset($_SESSION['userInfo'])) {
+            $this->redirect('index.php');
+        }
+
+        if (!isset($_SESSION['userInfo'][0]['addressId'])
+        || !isset($_SESSION['userInfo'][0]['status'])) {
+            // User still needs to associate an address
+            $this->redirect('address.php');
+        }
+    }
+
     public function registerUser() {
         $this->tableName = 'user';
 

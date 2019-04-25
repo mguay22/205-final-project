@@ -5,10 +5,7 @@ require_once('lib/config.php');
 
 <?php
 session_start();
-
-if (!isset($_SESSION['userInfo'])) {
-    $auth->redirect('index.php');
-}
+$auth->validateUserStatus();
 
 $invalidAddressId = false;
 

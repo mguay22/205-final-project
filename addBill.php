@@ -18,6 +18,9 @@ $billTypeEr = $amountEr = $dueDateEr =  "";
 $bill = new Bill($thisDatabaseReader, $thisDatabaseWriter);
 
 session_start();
+$auth->validateUserStatus();
+
+
 $userInfo = $_SESSION['userInfo'];
 
 if (isset($_POST['btnSubmit'])) {

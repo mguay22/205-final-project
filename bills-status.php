@@ -9,9 +9,7 @@ session_start();
 // $users=array($user);
 // $_SESSION['userInfo'] = $users;
 
-if (!isset($_SESSION['userInfo'])) {
-    $auth->redirect('index.php');
-}
+$auth->validateUserStatus();
 
 $userId=$_SESSION['userInfo'][0]['id'];
 

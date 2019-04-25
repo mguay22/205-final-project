@@ -11,15 +11,8 @@ require_once(__DIR__ . '/lib/config.php');
 $currentToken = 'sampletoken1'; //JUST FOR TESTING
 session_start(); 
 
-if (!isset($_SESSION['userInfo'])) {
-    $auth->redirect('index.php');
-}
+$auth->validateUserStatus();
 
-if (!isset($_SESSION['userInfo'][0]['addressId'])
-|| !isset($_SESSION['userInfo'][0]['status'])) {
-    // User still needs to associate an address
-    $auth->redirect('address.php');
-}
 
 function getAddressID($thisDatabaseReader, $currentToken)
 {
