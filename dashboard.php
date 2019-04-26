@@ -263,7 +263,7 @@ function getExpiredStatus($record){
                             if ($currentStatus == 'admin') {
                                 print   '
                                 <div class ="delete">
-                                    <form id="deleteForm" method="post">
+                                    <form class="deleteForm" method="post">
                                         <input type="hidden" id="billID" name="billID" value="' . $billId . '">
                                         <input class="btn btn-danger" type="submit" id="btnDel" name="btnDel" value="Delete">
                                     </form>

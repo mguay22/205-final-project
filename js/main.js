@@ -79,7 +79,12 @@ if (backAddressButton) {
 $(document).ready(function() {
 
 
-    $('#deleteForm').submit(function(e) {
+
+
+    $('.deleteForm').submit(function(e) {
+
+        console.log($(this).serialize());
+
         e.preventDefault();
         $.ajax({
             type: "POST",
