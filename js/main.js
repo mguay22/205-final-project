@@ -51,31 +51,54 @@ if (backAddressButton) {
 
 }
 
-$("#btnDel").click(function(e){
+// $("#btnDel").click(function(e){
+//
+//
+//     console.log("TEST");
+//     e.preventDefault();
+//     $.ajax({
+//         type: "POST",
+//         data: {id:$('#billID').value},
+//         url: "delete.php",
+//         success: function(success){
+//
+//             if(success == 'deleted'){
+//
+//                 console.log("TEST");
+//
+//
+//             }
+//
+//         }
+//
+//     })
+//
+// });
 
-    //Get Value from input buttonm
-    //Pass as data field
 
-    console.log("TESTING DELETE 1");
+$(document).ready(function() {
 
-    e.preventDefault();
-    $.ajax({
-        type: "POST",
-        url: "delete.php",
-        success: function(success){
 
-            if(success == 'deleted'){
+    $('#deleteForm').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: 'delete.php',
+            data: $(this).serialize(),
+            success: function(response)
+            {
+                var jsonData = JSON.parse(response);
 
-                console.log($(e).parent().parent().parent());
-
-                //Update
+                // Bill Is Deleted
+                if (jsonData.success == "1")
+                {
+                    location.href = 'dashboard.php';
+                }
+                else
+                {
+                    alert('Invalid Delete');
+                }
             }
-
-
-            console.log(success);
-            console.log("TESTING DELETE");
-        }
-
-    })
-
+        });
+    });
 });

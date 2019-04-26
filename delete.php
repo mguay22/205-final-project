@@ -2,11 +2,14 @@
 
 <?php
 
+include 'lib/constants.php';
+include LIB_PATH . '/Connect-With-Database.php'; //MUST REMOVE ECHO FROM CONNECT-WITH-DATABASE
+require_once(__DIR__ . '/lib/config.php');
 
-//if(isset($_GET["btnDel"])){
 
+    $id = $_POST['billID'];
 
-    $id = $_GET["billID"]; //Update to get the ID from the actua;
+//    $id = 46; //Update to get the ID from the actual
 
     $data = array();
     $data[] = $id;
@@ -21,19 +24,18 @@
 
 
         if($records){
-            echo 'deleted';
+            echo json_encode(array('success' => 1));
         }
 
         else{
-            echo'not deleted';
+            echo json_encode(array('success' => 0));
         }
 
     }
 
 
 
-    echo '<meta http-equiv="refresh"/>';
-//}
+
 
 
 ?>
