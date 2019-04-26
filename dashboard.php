@@ -263,7 +263,7 @@ function getExpiredStatus($record){
                             if ($currentStatus == 'admin') {
                                 print   '
                                 <div class ="delete">
-                                    <form>
+                                    <form id="deleteForm" method="post">
                                         <input type="hidden" id="billID" name="billID" value="' . $billId . '">
                                         <input class="btn btn-danger" type="submit" id="btnDel" name="btnDel" value="Delete">
                                     </form>
@@ -271,33 +271,16 @@ function getExpiredStatus($record){
                             };
                             
                           print '
+
                             </div>
                             
                         </div>
                     </div>';
                         }
                     }
-                    if(isset($_GET["btnDel"])){
-                        $id = $_GET["billID"];
-
-                        $data = array();
-                        $data[] = $id;
-                        $query = "DELETE FROM bill ";
-                        $query .= "WHERE ";
-                        $query .= "id = ?";
-
-
-                        if ($thisDatabaseWriter->querySecurityOk($query, 1, 0)) {
-                            $query = $thisDatabaseWriter->sanitizeQuery($query);
-                            $records = $thisDatabaseWriter->delete($query, $data);
-                        }
-                        
-
-                        echo '<meta http-equiv="refresh"/>';
-                    }
-                    
 
                     ?>
+
 
 
                 </div>
@@ -340,6 +323,8 @@ function getExpiredStatus($record){
             const x = new Date().getFullYear();
             let date = document.getElementById('date');
             date.innerHTML = '&copy; ' + x + date.innerHTML;
+
+
 
         </script>
     </div>

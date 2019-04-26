@@ -32,11 +32,73 @@ const existingHouseholdButton = document.getElementById('existing-household');
 const householdCodeForm = document.getElementById('household-code-form');
 const householdButtons = document.getElementById('household-buttons');
 const backAddressButton = document.querySelector('.back-address');
-existingHouseholdButton.addEventListener('click', () => {
-    householdCodeForm.style.display = 'block';
-    householdButtons.style.display = 'none';
-})
-backAddressButton.addEventListener('click', () => {
-    householdCodeForm.style.display = 'none';
-    householdButtons.style.display = 'flex';
-})
+
+
+if (existingHouseholdButton) {
+
+    existingHouseholdButton.addEventListener('click', () => {
+        householdCodeForm.style.display = 'block';
+        householdButtons.style.display = 'none';
+    });
+
+}
+
+if (backAddressButton) {
+    backAddressButton.addEventListener('click', () => {
+        householdCodeForm.style.display = 'none';
+        householdButtons.style.display = 'flex';
+    });
+
+}
+
+// $("#btnDel").click(function(e){
+//
+//
+//     console.log("TEST");
+//     e.preventDefault();
+//     $.ajax({
+//         type: "POST",
+//         data: {id:$('#billID').value},
+//         url: "delete.php",
+//         success: function(success){
+//
+//             if(success == 'deleted'){
+//
+//                 console.log("TEST");
+//
+//
+//             }
+//
+//         }
+//
+//     })
+//
+// });
+
+
+$(document).ready(function() {
+
+
+    $('#deleteForm').submit(function(e) {
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: 'delete.php',
+            data: $(this).serialize(),
+            success: function(response)
+            {
+                var jsonData = JSON.parse(response);
+
+                // Bill Is Deleted
+                if (jsonData.success == "1")
+                {
+                    location.href = 'dashboard.php';
+                }
+                else
+                {
+                    alert('Invalid Delete');
+                }
+            }
+        });
+    });
+});
