@@ -9,6 +9,8 @@ require_once(__DIR__ . '/lib/config.php');
 
     $id = $_POST['billID'];
 
+
+
 //    $id = 46; //Update to get the ID from the actual
 
     $data = array();
