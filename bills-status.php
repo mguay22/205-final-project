@@ -18,6 +18,8 @@ if(isset($_GET['billId'])){
     confirmBill($billId, $thisDatabaseReader, $thisDatabaseWriter);
 }
 
+
+//Keep the names of database be same between webdb and the code
 function getUserBills($userId, $thisDatabaseReader){
 
     $data = array($userId);
