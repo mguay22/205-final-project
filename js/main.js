@@ -83,7 +83,9 @@ $(document).ready(function() {
 
     $('.deleteForm').submit(function(e) {
 
-        console.log($(this).serialize());
+        // console.log($(this).serialize());
+
+        var form = $(this).parent().parent().parent();
 
         e.preventDefault();
         $.ajax({
@@ -97,7 +99,9 @@ $(document).ready(function() {
                 // Bill Is Deleted
                 if (jsonData.success == "1")
                 {
-                    location.href = 'dashboard.php';
+                    form.remove();
+
+
                 }
                 else
                 {
