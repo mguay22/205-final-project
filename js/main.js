@@ -51,33 +51,10 @@ if (backAddressButton) {
 
 }
 
-// $("#btnDel").click(function(e){
-//
-//
-//     console.log("TEST");
-//     e.preventDefault();
-//     $.ajax({
-//         type: "POST",
-//         data: {id:$('#billID').value},
-//         url: "delete.php",
-//         success: function(success){
-//
-//             if(success == 'deleted'){
-//
-//                 console.log("TEST");
-//
-//
-//             }
-//
-//         }
-//
-//     })
-//
-// });
-
-
+/**
+ * Asynchronously delete Bill without refresh
+ */
 $(document).ready(function() {
-
 
 
 
@@ -85,7 +62,7 @@ $(document).ready(function() {
 
         // console.log($(this).serialize());
 
-        var form = $(this).parent().parent().parent();
+        var form = $(this).parent().parent().parent(); //Need to define $(this) entire bill card before ajax request
 
         e.preventDefault();
         $.ajax({
@@ -99,8 +76,11 @@ $(document).ready(function() {
                 // Bill Is Deleted
                 if (jsonData.success == "1")
                 {
-                    form.remove();
-
+                    form.animate({
+                        top: "-=1000"
+                    }, 1000, function(){
+                        form.remove();
+                    });
 
                 }
                 else
