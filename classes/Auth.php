@@ -58,6 +58,13 @@ class Auth {
         return $addressId;
     }
 
+    public function getUsersByAddressId() {
+        $addressId = $_SESSION['userInfo'][0]['addressId'];
+        $users = $this->queryUsersByAddressId($addressId);
+
+        return $users;
+    }
+
     public function registerUser() {
         $this->tableName = 'user';
 
@@ -182,6 +189,22 @@ class Auth {
 
         $queryArray = array(
             $address
+        );
+
+        $result = $this->databaseWriter->select($query, $queryArray);
+
+        if (!$result || sizeof($result) == 0) {
+            return false;
+        }
+
+        return $result;
+    }
+
+    private function queryUsersByAddressId($addressId) {
+        $query = "select * from user where addressId = ?";
+
+        $queryArray = array(
+            $addressId
         );
 
         $result = $this->databaseWriter->select($query, $queryArray);
