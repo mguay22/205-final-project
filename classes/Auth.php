@@ -29,6 +29,15 @@ class Auth {
         }
     }
 
+    public function validateUserStatusAddBill() {
+        $this->validateUserStatus();
+
+        // Additionally, make sure the user is an admin
+        if ($_SESSION['userInfo'][0]['status'] !== 'admin') {
+            $this->redirect('dashboard.php');
+        }
+    }
+
     public function validateUserStatusAddress() {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
@@ -47,6 +56,13 @@ class Auth {
         }
 
         return $addressId;
+    }
+
+    public function getUsersByAddressId() {
+        $addressId = $_SESSION['userInfo'][0]['addressId'];
+        $users = $this->queryUsersByAddressId($addressId);
+
+        return $users;
     }
 
     public function registerUser() {
@@ -173,6 +189,22 @@ class Auth {
 
         $queryArray = array(
             $address
+        );
+
+        $result = $this->databaseWriter->select($query, $queryArray);
+
+        if (!$result || sizeof($result) == 0) {
+            return false;
+        }
+
+        return $result;
+    }
+
+    private function queryUsersByAddressId($addressId) {
+        $query = "select * from user where addressId = ?";
+
+        $queryArray = array(
+            $addressId
         );
 
         $result = $this->databaseWriter->select($query, $queryArray);

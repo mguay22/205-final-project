@@ -131,3 +131,34 @@ Registration Page
     left: 0;
     z-index: 1;
 }
+
+/**
+Settings Page
+**/
+.settings-text h1,
+.settings-text h3,
+td,
+th {
+    color: white !important;
+}
+
+/**
+Dashboard
+**/
+.main-panel>.content {
+    margin-top: 25px !important;
+}
+
+/**
+Typography
+**/
+h1,
+h2,
+h3,
+h4,
+h5,
+h6
+p,
+legend {
+    color: #a9afbbd1;
+}
