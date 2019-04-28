@@ -265,7 +265,7 @@ function getExpiredStatus($record){
                                 <div class ="delete">
                                     <form>
                                         <input type="hidden" id="billID" name="billID" value="' . $billId . '">
-                                        <input class="btn btn-danger" type="submit" id="btnDel" name="btnDel" value="Delete">
+                                        <input class="btn btn-danger" type="button" id="btnDel" name="btnDel" value="Delete">
                                     </form>
                                 </div>';
                             };

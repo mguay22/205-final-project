@@ -32,11 +32,16 @@ const existingHouseholdButton = document.getElementById('existing-household');
 const householdCodeForm = document.getElementById('household-code-form');
 const householdButtons = document.getElementById('household-buttons');
 const backAddressButton = document.querySelector('.back-address');
-existingHouseholdButton.addEventListener('click', () => {
-    householdCodeForm.style.display = 'block';
-    householdButtons.style.display = 'none';
-})
-backAddressButton.addEventListener('click', () => {
-    householdCodeForm.style.display = 'none';
-    householdButtons.style.display = 'flex';
-})
+if (existingHouseholdButton) {
+    existingHouseholdButton.addEventListener('click', () => {
+        householdCodeForm.style.display = 'block';
+        householdButtons.style.display = 'none';
+    });
+}
+
+if (backAddressButton) {
+    backAddressButton.addEventListener('click', () => {
+        householdCodeForm.style.display = 'none';
+        householdButtons.style.display = 'flex';
+    });
+}
