@@ -25,7 +25,7 @@ $userInfo = $_SESSION['userInfo'];
 
 if (isset($_POST['btnSubmit'])) {
     if ($bill->addBill($userInfo)) {
-        $bill->redirect('dashboard.php');
+        //$bill->redirect('dashboard.php');
     } else {
         var_dump($bill->errorMessage);
     }
