@@ -32,7 +32,14 @@ const existingHouseholdButton = document.getElementById('existing-household');
 const householdCodeForm = document.getElementById('household-code-form');
 const householdButtons = document.getElementById('household-buttons');
 const backAddressButton = document.querySelector('.back-address');
+<<<<<<< HEAD
 if (existingHouseholdButton) {
+=======
+
+
+if (existingHouseholdButton) {
+
+>>>>>>> f9c174c501a67e882ea407381321bdc631f54490
     existingHouseholdButton.addEventListener('click', () => {
         householdCodeForm.style.display = 'block';
         householdButtons.style.display = 'none';
@@ -44,4 +51,46 @@ if (backAddressButton) {
         householdCodeForm.style.display = 'none';
         householdButtons.style.display = 'flex';
     });
+
 }
+
+/**
+ * Asynchronously delete Bill without refresh
+ */
+$(document).ready(function() {
+
+
+
+    $('.deleteForm').submit(function(e) {
+
+        // console.log($(this).serialize());
+
+        var form = $(this).parent().parent().parent(); //Need to define $(this) entire bill card before ajax request
+
+        e.preventDefault();
+        $.ajax({
+            type: "POST",
+            url: 'delete.php',
+            data: $(this).serialize(),
+            success: function(response)
+            {
+                var jsonData = JSON.parse(response);
+
+                // Bill Is Deleted
+                if (jsonData.success == "1")
+                {
+                    form.animate({
+                        top: "-=1000"
+                    }, 1000, function(){
+                        form.remove();
+                    });
+
+                }
+                else
+                {
+                    alert('Invalid Delete');
+                }
+            }
+        });
+    });
+});

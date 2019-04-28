@@ -48,7 +48,7 @@ if (isset($_POST['addressId'])) {
                 <small id="householdCodeHelp" class="form-text text-muted">Enter the Address ID for your address, provided by the house admin</small>
             </div>
             <button type="submit" class="btn btn-primary">Submit</button>
-            <div class="btn btn-primary back-address">Back</button>
+            <button class="btn btn-primary back-address">Back</button>
         </form>
     </article>
 </div>
