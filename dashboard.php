@@ -96,79 +96,10 @@ function getExpiredStatus($record){
 
 ?>
 
-<div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
-        <div class="logo">
-            <img src="assets/img/logo.png" alt="Bill Buddy Logo">
-            <a href="dashboard.php" class="simple-text logo-normal">
-                <?php print  $_SESSION['userInfo'][0]['fullName'] . ' | ' . $_SESSION['userInfo'][0]['status'] ?>
-            </a>
-        </div>
-        <div class="sidebar-wrapper">
-            <ul class="nav">
-                <li class="nav-item active  ">
-                    <a class="nav-link" href="dashboard.php">
-                        <i class="material-icons">dashboard</i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
-
-                <?php
-
-                $currentStatus = $_SESSION['userInfo'][0]['status'];
-
-                /**
-                 * If User is Admin, show addBill.php nav item
-                 */
-                if ($currentStatus == 'admin') {
-
-                    print '    
-                        <li class="nav-item">
-                             <a class="nav-link" href="addBill.php">
-                                <i class="material-icons">money</i>
-                                <p>Add Bill</p>
-                             </a>
-                         </li>
-                         ';
-                }
-
-                ?>
-
-            </ul>
-        </div>
-    </div>
+    <?php require_once('templates/nav.php'); ?>
 
     <div class="main-panel">
-        <!-- Navbar -->
-        <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top " id="navigation-example">
-            <div class="container-fluid">
-                <div class="navbar-wrapper">
-                    <a class="navbar-brand" href="javascript:void(0)">Current Bills</a>
-                </div>
-                <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                    <span class="navbar-toggler-icon icon-bar"></span>
-                </button>
-                <div class="collapse navbar-collapse justify-content-end">
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <a class="nav-link" href="javascript:void(0)">
-                                <i class="material-icons">notifications</i>
-                                <p class="d-lg-none d-md-block">
-                                    Notifications
-                                </p>
-                            </a>
-                        </li>
-
-                        <!-- your navbar here -->
-
-                    </ul>
-                </div>
-            </div>
-        </nav>
-        <!-- End Navbar -->
+        <h3 style="color: #a9afbbd1; padding-left: 27px;">Current Bills</h3>       
         <div class="content">
             <div class="container-fluid">
 
@@ -289,31 +220,7 @@ function getExpiredStatus($record){
         </div>
         <section class="footer">
             <div class="container-fluid">
-                <nav class="float-left">
-                    <ul>
-                        <li>
-                            <a href="#">
-                                LINK
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                LINK
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                LINK
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                LINK
-                            </a>
-                        </li>
-                    </ul>
-                </nav>
-                <div class="copyright float-right" id="date">
+                <div class="copyright float-left" style="padding-left: 15px;" id="date">
 
                     Bill Buddy Inc.
                 </div>

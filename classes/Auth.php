@@ -29,6 +29,15 @@ class Auth {
         }
     }
 
+    public function validateUserStatusAddBill() {
+        $this->validateUserStatus();
+
+        // Additionally, make sure the user is an admin
+        if ($_SESSION['userInfo'][0]['status'] !== 'admin') {
+            $this->redirect('dashboard.php');
+        }
+    }
+
     public function validateUserStatusAddress() {
         if (session_status() == PHP_SESSION_NONE) {
             session_start();
