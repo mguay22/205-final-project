@@ -25,12 +25,8 @@ $auth->validateUserStatusAddBill();
 $userInfo = $_SESSION['userInfo'];
 
 if (isset($_POST['btnSubmit'])) {
-<<<<<<< HEAD
-    if ($bill->addBill($userInfo)) {
-=======
     if ($bill->addBill($userInfo, $auth)) {
->>>>>>> 1a8499eaf61be83194021f0e131799f6a79a6dc7
-        //$bill->redirect('dashboard.php');
+        $bill->redirect('dashboard.php');
     } else {
         var_dump($bill->errorMessage);
     }
