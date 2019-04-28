@@ -6,6 +6,7 @@
  * Time: 12:43
  */
 
+
 require_once(dirname(__DIR__) . '/vendor/formvalidator.php');
 
 class Bill
@@ -23,7 +24,7 @@ class Bill
     }
 
 
-    public function addBill($userInfo) {
+    public function addBill($userInfo, $auth) {
 
         if ( !( isset($_POST['btnSubmit'] ) ) || !( $this->validateFormSubmission() )) {
             return false;
@@ -44,22 +45,31 @@ class Bill
         $formInfo = $this->collectFormSubmission();
 
 
-
         if (!$this->saveToDatabase($formInfo, $userInfo)) {
             return false;
         }
 
+        $this->emailStandardUsers($auth);
+
         return true;
     }
 
+    private function emailStandardUsers($auth) {
+        $users = $auth->getUsersByAddressId();
+        $msg = "A new bill has been created for your household. Visit the dashboard to view it.";
 
+        for ($i = 0; $i < sizeof($users); $i++) {
+            $currentEmail = $users[$i]["email"];
+            mail($currentEmail, "New Bill", $msg);
+        }
+    }
 
     private function collectFormSubmission() {
         $formInfo = array();
 
         $formInfo['type'] = $this->sanitize($_POST['type']);
         $formInfo['dueDate'] = $this->sanitize($_POST['dueDate']);
-        $formInfo['addressId'] = $this->sanitize($_POST['addressId']);
+        //$formInfo['addressId'] = $this->sanitize($_POST['addressId']);
         //$formInfo['fileName'] = ($_FILES["fileName"]["name"]);
         $formInfo['amount'] = $this->sanitize($_POST['amount']);
 

@@ -32,14 +32,10 @@ const existingHouseholdButton = document.getElementById('existing-household');
 const householdCodeForm = document.getElementById('household-code-form');
 const householdButtons = document.getElementById('household-buttons');
 const backAddressButton = document.querySelector('.back-address');
-<<<<<<< HEAD
-if (existingHouseholdButton) {
-=======
 
 
 if (existingHouseholdButton) {
 
->>>>>>> f9c174c501a67e882ea407381321bdc631f54490
     existingHouseholdButton.addEventListener('click', () => {
         householdCodeForm.style.display = 'block';
         householdButtons.style.display = 'none';
@@ -55,11 +51,20 @@ if (backAddressButton) {
 }
 
 /**
- * Asynchronously delete Bill without refresh
+ * Asynchronously delete Bill without refresh and handle active menu li
  */
 $(document).ready(function() {
+    const page = window.location.pathname.substr(window.location.pathname.lastIndexOf('/') + 1);
+    const activeMenuItem = $('.nav').find('.active');
+    $(activeMenuItem).toggleClass('active');
 
-
+    if (page === 'dashboard.php') {
+        $('.dashboard').toggleClass('active');
+    } else if (page === 'addBill.php') {
+        $('.add-bill').toggleClass('active');
+    } else {
+        $('.settings').toggleClass('active');
+    }
 
     $('.deleteForm').submit(function(e) {
 
