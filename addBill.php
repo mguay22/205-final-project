@@ -33,7 +33,6 @@ if (isset($_POST['btnSubmit'])) {
 }
 
 ?>
-<div class="main-panel">
     <article id ="main">
         <h3 style="margin-bottom: 30px;">Enter Bill</h3>
         <form id ="bill" action="" method="POST" enctype="multipart/form-data">

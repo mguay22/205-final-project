@@ -98,8 +98,8 @@ function getExpiredStatus($record){
 
     <?php require_once('templates/nav.php'); ?>
 
-    <div class="main-panel">
-        <h3 style="color: #a9afbbd1; padding-left: 27px;">Current Bills</h3>       
+<!--    <div class="main-panel">-->
+        <h3 style="color: #a9afbbd1; padding-left: 27px;">Current Bills</h3>
         <div class="content">
             <div class="container-fluid">
 

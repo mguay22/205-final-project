@@ -9,7 +9,6 @@ $userAddressId = $_SESSION['userInfo'][0]['addressId'];
 $users = $auth->getUsersByAddressId();
 ?>
 
-<div class="main-panel">
     <div class="container" style="margin-top: 30px;">
         <div class="row">
             <div class="col-md-12 text-center settings-text">
