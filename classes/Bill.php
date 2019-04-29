@@ -130,7 +130,7 @@ class Bill
             $error = '';
             $errorHash = $validator->GetErrors();
             foreach ($errorHash as $inputName => $inputError) {
-                $error .= $inputName . ':' . $inputError . "\n";
+                $error .= "<p>". $inputError . "</p>";
             }
 
             $this->handleError($error);
