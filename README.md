@@ -32,12 +32,38 @@ For security, we will not be submitting our database passwords. If you would lik
 ## Logical Flow of the System
 
 1. User navigates to [Bill Buddy](https://jhchilds.w3.uvm.edu/final_proj/ "Login")
-[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
+
+![alt text][index]
+
+[index]: http://jhchilds.w3.uvm.edu/final-screenshots/index1.png "Bill Buddy Index"
+
 2. This is our sign-in page, as well as our index.
 3. From here you can login, or register a new user. 
+
+![alt text][register]
+
+[register]: http://jhchilds.w3.uvm.edu/final-screenshots/register2.png "Bill Buddy Registration"
+
 4. Either way, this will call upon the Auth class (**Auth.php**)
+
+![alt text][new]
+
+[new]: http://jhchilds.w3.uvm.edu/final-screenshots/address3.png "Bill Buddy Registration"
+
 5. The Auth class defines the php session variable for all users, existing or newly created.
+
+![alt text][existing]
+
+[existing]: http://jhchilds.w3.uvm.edu/final-screenshots/address3new.png "Bill Buddy Registration"
+
 6. Auth.php also selects and inserts user information to our **MySQL** database.
+
+
+
+
+
+
+
 7. After successful user authentication, all users are redirected to **dashboard.php**.
 8. The Dashboard retrieves and prints all existing bills associated with the current user's address, specifically their addressId.
 9. The **addressId** connects all users within the same group (apartment, house, unit etc...)
