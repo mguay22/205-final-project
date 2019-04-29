@@ -226,8 +226,6 @@ class Auth {
 
         $result = $this->databaseWriter->update($query, $queryArray);
 
-        var_dump($result);
-
         if (!$result) {
             return false;
         }
@@ -282,6 +280,11 @@ class Auth {
     }
 
     private function saveNewAddressToDatabase($formInfo) {
+        if (!$this->isAddressUnique($formInfo['address'])) {
+            $this->handleError("This address is already registered");
+            return false;
+        }
+
         if (!$this->insertNewAddressIntoDb($formInfo)) {
             $this->handleError("Inserting to Database failed!");
             return false;
@@ -325,7 +328,26 @@ class Auth {
             $this->sanitizeForSQL($formInfo['state']),
         );
 
-        return $this->databaseWriter->insert($query, $values);
+        $this->databaseWriter->insert($query, $values);
+
+        // Get new address ID
+        $query = "select id from address where address = ?";
+        $queryArray = array(
+            $formInfo['address']
+        );
+
+        $addressId = $this->databaseReader->select($query, $queryArray);
+
+        // Update
+        $query = "update user SET addressId = ?, status = ? WHERE username = ?";
+        $queryArray = array(
+            $addressId[0]['id'],
+            'admin',
+            $_SESSION['userInfo'][0]['username']
+        );
+
+        $result = $this->databaseWriter->update($query, $queryArray);
+        return $result;
     }
 
     private function insertIntoDb($formInfo) {
@@ -351,6 +373,22 @@ class Auth {
         ); ;
 
         return $this->databaseWriter->insert($query, $values);
+    }
+
+    private function isAddressUnique($address) {
+        $fieldValue = $this->sanitizeForSQL($address);
+        $query = "select * from address where address = ?";
+        $data = array(
+            $fieldValue
+        );
+
+        $result = $this->databaseReader->select($query, $data);
+
+        if ($result && sizeof($result) > 0) {
+            return false;
+        }
+
+        return true;
     }
 
     private function isFieldUnique($formInfo, $fieldName) {
