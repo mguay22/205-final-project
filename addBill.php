@@ -24,20 +24,25 @@ $bill = new Bill($thisDatabaseReader, $thisDatabaseWriter);
 $auth->validateUserStatusAddBill();
 $userInfo = $_SESSION['userInfo'];
 
+$billError = false;
+
 if (isset($_POST['btnSubmit'])) {
     if ($bill->addBill($userInfo, $auth)) {
         $bill->redirect('dashboard.php');
     } else {
-        var_dump($bill->errorMessage);
+        $billError = true;
     }
 }
 
 ?>
 
-    <?php require_once('templates/nav.php'); ?>
+
 
     <article id ="addBill">
         <h2>Enter Bill</h2>
+        <?php if ($billError) { ?>
+            <div class="error-message"><h4><?php echo $bill->errorMessage; ?></h4></div>
+        <?php } ?>
         <form id="bill" action="" method="POST" enctype="multipart/form-data">
             <fieldset class="form-group">
                 <div class="row">
