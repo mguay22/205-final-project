@@ -12,7 +12,7 @@ if (isset($_POST['submitted'])) {
     if ($auth->registerNewHousehold()) {
         $_SESSION['userInfo'][0]['status'] = 'admin';
         $_SESSION['userInfo'][0]['addressId'] = $auth->getUserAddressId($_POST['address']);
-        $auth->redirect('dashboard.php');
+        $auth->redirect('index.php');
     } else {
         $addressError = true;
     }
