@@ -66,7 +66,7 @@ For security, we will not be submitting our database passwords. If you would lik
 
 ![alt text][dashboard]
 
-[dashboard]: http://jhchilds.w3.uvm.edu/final-screenshots/dashboard5.png "Bill Buddy Registration"
+[dashboard]: http://jhchilds.w3.uvm.edu/final-screenshots/dashboard5.png "Bill Buddy Dashboard"
 
 8. The Dashboard retrieves and prints all existing bills associated with the current user's address, specifically their addressId.
 9. The **addressId** connects all users within the same group (apartment, house, unit etc...)
@@ -75,6 +75,12 @@ For security, we will not be submitting our database passwords. If you would lik
 
 ![alt text][addbill]
 
-[addbill]: http://jhchilds.w3.uvm.edu/final-screenshots/addBill6.png "Bill Buddy Registration"
+[addbill]: http://jhchilds.w3.uvm.edu/final-screenshots/addBill6.png "Bill Buddy"
 
 12. These bills will be displayed on the dashboards of every user in the associated group reguardless of the status of the user.
+
+13. All users have access to the settings page which displays all users in the associated group and their emails.
+
+![alt text][settings]
+
+[settings]: http://jhchilds.w3.uvm.edu/final-screenshots/settings7.png "Bill Buddy"
