@@ -20,8 +20,8 @@ To make your grading easier you can navigate our site this way to view as much a
 2. Sign up for new account by clicking sign-up link.
 3. Fill in details and click register button.
 
-4.  (TWO OPTIONS) 1)Register with new address (this will give your user "admin" privelages, such as Adding and Deleting Bills) 
- 2)Register with existing address. We have a sample group created with House Code 1. You will be able to see these bills as a "standard" user (can not add or delete bills). 
+4.  (*Two Options*) **1)** Register with new address (this will give your user "admin" privelages, such as Adding and Deleting Bills) 
+ **2)** Register with existing address. We have a sample group created with House Code 1. You will be able to see these bills as a "standard" user (can not add or delete bills). 
 
 
 # Code
@@ -34,9 +34,12 @@ For security, we will not be submitting our database passwords. If you would lik
 1. User navigates to [Bill Buddy](https://jhchilds.w3.uvm.edu/final_proj/ "Login")
 2. This is our sign-in page, as well as our index.
 3. From here you can login, or register a new user. 
-4. Either way, this will call upon the Auth class (Auth.php)
+4. Either way, this will call upon the Auth class (**Auth.php**)
 5. The Auth class defines the php session variable for all users, existing or newly created.
-6. Auth.php also selects and inserts user information to our MySQL database.
-7. After successful user authentication, all users are redirected to dashboard.php.
+6. Auth.php also selects and inserts user information to our **MySQL** database.
+7. After successful user authentication, all users are redirected to **dashboard.php**.
 8. The Dashboard retrieves and prints all existing bills associated with the current user's address, specifically their addressId.
-9. The addressId connects all users within the same group (apartment, house, unit etc...)
+9. The **addressId** connects all users within the same group (apartment, house, unit etc...)
+10. (Admin Only) From the dashboard, group admins can access **addBill.php** from the sidebar nav. 
+11. **addBill.php** allows admins to create new bills for their group. 
+12. These bills will be displayed on the dashboards of every user in the associated group reguardless of the status of the user.
