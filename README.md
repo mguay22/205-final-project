@@ -72,4 +72,9 @@ For security, we will not be submitting our database passwords. If you would lik
 9. The **addressId** connects all users within the same group (apartment, house, unit etc...)
 10. (Admin Only) From the dashboard, group admins can access **addBill.php** from the sidebar nav. 
 11. **addBill.php** allows admins to create new bills for their group. 
+
+![alt text][addbill]
+
+[addbill]: http://jhchilds.w3.uvm.edu/final-screenshots/addBill6.png "Bill Buddy Registration"
+
 12. These bills will be displayed on the dashboards of every user in the associated group reguardless of the status of the user.
