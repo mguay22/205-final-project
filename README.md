@@ -56,15 +56,18 @@ For security, we will not be submitting our database passwords. If you would lik
 
 [existing]: http://jhchilds.w3.uvm.edu/final-screenshots/address3new.png "Bill Buddy Registration"
 
+![alt text][existing2]
+
+[existing2]: http://jhchilds.w3.uvm.edu/final-screenshots/address4existing.png "Bill Buddy Registration"
+
 6. Auth.php also selects and inserts user information to our **MySQL** database.
 
-
-
-
-
-
-
 7. After successful user authentication, all users are redirected to **dashboard.php**.
+
+![alt text][dashboard]
+
+[dashboard]: http://jhchilds.w3.uvm.edu/final-screenshots/dashboard5.png "Bill Buddy Registration"
+
 8. The Dashboard retrieves and prints all existing bills associated with the current user's address, specifically their addressId.
 9. The **addressId** connects all users within the same group (apartment, house, unit etc...)
 10. (Admin Only) From the dashboard, group admins can access **addBill.php** from the sidebar nav. 
