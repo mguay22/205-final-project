@@ -99,7 +99,7 @@ if (isset($_POST['btnSubmit'])) {
                 </div>
             </div>
             <div>
-                    <label class="col-sm-2 col-form-label">File</label>
+                    <label class="col-sm-2 col-form-label">Bill Image</label>
                     <input type="file" name="fileName" />
             </div>
             <fieldset class="button">
