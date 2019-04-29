@@ -196,3 +196,7 @@ input#btnResult{
 div#operator {
     text-align: center;
 }
+
+article#addBill .col-sm-10 {
+    padding-top: 1em;
+}
