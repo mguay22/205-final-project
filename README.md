@@ -32,6 +32,7 @@ For security, we will not be submitting our database passwords. If you would lik
 ## Logical Flow of the System
 
 1. User navigates to [Bill Buddy](https://jhchilds.w3.uvm.edu/final_proj/ "Login")
+[logo]: https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 2"
 2. This is our sign-in page, as well as our index.
 3. From here you can login, or register a new user. 
 4. Either way, this will call upon the Auth class (**Auth.php**)
