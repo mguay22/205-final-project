@@ -33,46 +33,12 @@ if (isset($_POST['btnSubmit'])) {
 }
 
 ?>
-<div class="wrapper ">
-    <div class="sidebar" data-color="purple" data-background-color="black" data-image="../assets/img/sidebar-2.jpg">
-        <div class="logo">
-            <img src="assets/img/logo.png" alt="Bill Buddy Logo">
-            <a href="dashboard.php" class="simple-text logo-normal">
-                <?php print  $_SESSION['userInfo'][0]['fullName'] . ' | ' . $_SESSION['userInfo'][0]['status'] ?>
-            </a>
-        </div>
-        <div class="sidebar-wrapper">
-            <ul class="nav">
-                <li class="nav-item active  ">
-                    <a class="nav-link" href="dashboard.php">
-                        <i class="material-icons">dashboard</i>
-                        <p>Dashboard</p>
-                    </a>
-                </li>
 
-                <?php
-                $currentStatus = $_SESSION['userInfo'][0]['status'];
-                /**
-                 * If User is Admin, show addBill.php nav item
-                 */
-                if ($currentStatus == 'admin') {
-                    print '    
-                        <li class="nav-item">
-                             <a class="nav-link" href="addBill.php">
-                                <i class="material-icons">money</i>
-                                <p>Add Bill</p>
-                             </a>
-                         </li>
-                         ';
-                }
-                ?>
+    <?php require_once('templates/nav.php'); ?>
 
-            </ul>
-        </div>
-    </div>
     <article id ="addBill">
         <h2>Enter Bill</h2>
-        <form>
+        <form id="bill" action="" method="POST" enctype="multipart/form-data">
             <fieldset class="form-group">
                 <div class="row">
                     <legend class="col-sm-2 col-form-label">Bill Type</legend>
