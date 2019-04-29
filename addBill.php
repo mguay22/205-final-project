@@ -24,176 +24,165 @@ $bill = new Bill($thisDatabaseReader, $thisDatabaseWriter);
 $auth->validateUserStatusAddBill();
 $userInfo = $_SESSION['userInfo'];
 
+$billError = false;
+
 if (isset($_POST['btnSubmit'])) {
     if ($bill->addBill($userInfo, $auth)) {
         $bill->redirect('dashboard.php');
     } else {
-        var_dump($bill->errorMessage);
+        $billError = true;
     }
 }
 
 ?>
-<div class="main-panel">
-    <article id ="main">
-        <h3 style="margin-bottom: 30px;">Enter Bill</h3>
-        <form id ="bill" action="" method="POST" enctype="multipart/form-data">
-            <fieldset class = "radio">
-                <legend>Bill Type</legend>
-                <p>
-                    <label class ="radio-field">
-                        <input type="radio"
-                            name="type"
-                            value="rent"
-                            tabindex="572">
-                    Rent</label>
-                    <label class ="radio-field">
-                        <input type="radio"
-                            name="type"
-                            value="gas"
-                            tabindex="572">
-                    Gas</label>
-                    <label class ="radio-field">
-                        <input type="radio"
-                            name="type"
-                            value="water"
-                            tabindex="572">
-                    Water</label>
-                    <label class ="radio-field">
-                        <input type="radio"
-                            name="type"
-                            value="wifi"
-                            tabindex="572">
-                    Wifi</label>
 
-                    <label class ="radio-field">
-                        <input type="radio"
-                            name="type"
-                            value="electric"
-                            tabindex="572">
-                        Electric</label>
-                    <label class ="radio-field">
-                        <input type="radio"
-                            name="type"
-                            value="other"
-                            tabindex="572">
-                    Other</label>
-                </p>
+
+
+    <article id ="addBill">
+        <h2>Enter Bill</h2>
+        <?php if ($billError) { ?>
+            <div class="error-message"><h4><?php echo $bill->errorMessage; ?></h4></div>
+        <?php } ?>
+        <form id="bill" action="" method="POST" enctype="multipart/form-data">
+            <fieldset class="form-group">
+                <div class="row">
+                    <legend class="col-sm-2 col-form-label">Bill Type</legend>
+                        <div class="col-sm-10">
+                            <div class="form-check">
+                                <input type="radio" name="type" id="rent" value="rent">
+                                <label class="form-check-label" for="rent">RENT</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="type" id="gas" value="gas">
+                                <label class="form-check-label" for="gas">GAS</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="type" id="water" value="water">
+                                <label class="form-check-label" for="water">WATER</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="type" id="wifi" value="wifi">
+                                <label class="form-check-label" for="wifi">WIFI</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="type" id="electric" value="electric">
+                                <label class="form-check-label" for="electric">ELECTRIC</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" name="type" id="other" value="other">
+                                <label class="form-check-label" for="other">OTHER</label>
+                            </div>
+                        </div>
+                </div>
             </fieldset>
-            <fieldset class ="text-area">
-                <legend>Information</legend>
-                <p>
-                    <label class="required text-field" for="txtAmount">Amount</label>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="txtAmount">Amount</label>
+                <div class="col-sm-10">
                     <input id ="txtAmount"
-                        maxlength ="45"
-                        name="amount"
-                        placeholder="Enter amount"
-                        tabindex="100"
-                        type= "text"
-                        value="<?php print $amount; ?>"
-                        >
-                </p>
-                <p>
-                    <label class="required text-field" for="txtDueDate">Due Date</label>
+                           class="form-control"
+                           name="amount"
+                           placeholder="Enter amount"
+                           type= "text"
+                           value="<?php print $amount; ?>"
+                           >
+                </div>
+            </div>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label" for="txtDueDate">Due Date</label>
+                <div class="col-sm-10">
                     <input id="txtDueDate"
-                        name="dueDate"
-                        tabindex="100"
-                        type="date"
-                        value="<?php print $dueDate; ?>"
-                        >
-                </p>
-                <p>
-                    <label class ="optional" for="txtAddInfo">Additional Info</label>
-                    <textarea id="txtAddInfo"
-                            name="txtAddInfo"
-                            tabindex="400"><?php print $additionalInfo; ?>
-                    </textarea>
-                </p>
-                <p>
-                    <label class ="optional">File</label>
+                           class="form-control"
+                           name="dueDate"
+                           type="date"
+                           value="<?php print $dueDate; ?>"
+                           >
+                </div>
+            </div>
+            <div>
+                    <label class="col-sm-2 col-form-label">File</label>
                     <input type="file" name="fileName" />
-                </p>
-            </fieldset>
-            <fieldset class="buttons">
-                    <legend></legend>
-                    <input class="button" id="btnSubmit" name="btnSubmit" tabindex="400" type="submit" value="Add" >
+            </div>
+            <fieldset class="button">
+                    <input class="btn btn-primary" id="btnSubmit" name="btnSubmit" type="submit" value="Add" >
             </fieldset>
         </form>
-        <h2>Calculator</h2>
-        <form id ="calculator">
-            <fieldset class = "num">
-                <p>
-                    <label>Num 1</label>
-                    <input type= "number" name ="num1" min = "0" value = "0" step = "0.01">
-                </p>
-                <fieldset class ="operator">
-                <label class ="radio-field">
-                    <input type="radio"
-                            name="operator"
-                            value="+"
-                            tabindex="572">
-                +</label>
-                <label class ="radio-field">
-                    <input type="radio"
-                            name="operator"
-                            value="-"
-                            tabindex="572">
-                -</label>
-                <label class ="radio-field">
-                    <input type="radio"
-                            name="operator"
-                            value="X"
-                            tabindex="572">
-                X</label>
-                <label class ="radio-field">
-                    <input type="radio"
-                            name="operator"
-                            value="÷"
-                            tabindex="572">
-                ÷</label>
+        <h2 class = "cal">Calculator</h2>
+        <form>
+            <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="num1">NUM 1</label>
+                    <div class="col-sm-10">
+                        <input id ="txtAmount"
+                               class="form-control"
+                               name="num1"
+                               type= "number" min = "0" value = "0" step = "0.01"
+                               >
+                    </div>
+            </div>
+            <div id ="operator">
+                <div class="form-check form-check-inline">
+                    <input  type="radio" name="operator" id="plus" value="+" checked="">
+                        <label class="form-check-label" for="plus">+</label>
+                </div>
+                <div class="form-check form-check-inline">
+                        <input  type="radio" name="operator" id="minus" value="-">
+                        <label class="form-check-label" for="minus">-</label>
+                </div>
+                <div class="form-check form-check-inline">
+                        <input  type="radio" name="operator" id="mul" value="x">
+                        <label class="form-check-label" for="mul">x</label>
+                </div>
+                <div class="form-check form-check-inline">
+                        <input  type="radio" name="operator" id="div" value="/">
+                        <label class="form-check-label" for="div">/</label>
+                </div>
+            </div>
+            <div class="form-group row">
+                    <label class="col-sm-2 col-form-label" for="num2">NUM 2</label>
+                    <div class="col-sm-10">
+                        <input id ="txtAmount"
+                               class="form-control"
+                               name="num2"
+                               type= "number" min = "0" value = "0" step = "0.01"
+                               >
+                    </div>
+            </div>
+            <fieldset class="button">
+                        <input class="btn btn-primary" id="btnResult" name="btnResult" type="submit" value="Equal" >
             </fieldset>
-                <p>
-                    <label>Num 2</label>
-                    <input type= "number" name ="num2" min = "0" value = "0" step = "0.01">
-                </p>
-            </fieldset>
-            <fieldset class="buttons">
-                    <legend></legend>
-                    <input class="button" id="btnResult" name="btnResult" tabindex="400" type="submit" value="Equal" >
-            </fieldset>
+            <div class="form-group row">
+                <label class="col-sm-2 col-form-label">RESULT</label>
+                <?php
+                $result = array();
+                if(isset($_GET["btnResult"])){
+                    $num1 = $_GET["num1"];
+                    $num2 = $_GET["num2"];
+                    $operator = $_GET["operator"];
+                    echo $num1;
+                    echo " ";
+                    echo $operator;
+                    echo " ";
+                    echo $num2;
+                    echo " = ";
+                    //if($operator != "+" || $operator != "-" || $operator != "X" || $operator != "÷"){
+                    //   echo "choose an operator";
+                    //}
+                    if($operator == "+"){
+                        echo $num1 + $num2;
+                    }
+                    if($operator == "-"){
+                        echo $num1 - $num2;
+                    }
+                    if($operator == "X"){
+                        echo $num1 * $num2;
+                    }
+                    if($operator == "÷"){
+                        echo $num1 / $num2;
+                    }
+                }
+                ?>
+            </div>
         </form>
-        <?php
-            $result = array();
-            if(isset($_GET["btnResult"])){
-                $num1 = $_GET["num1"];
-                $num2 = $_GET["num2"];
-                $operator = $_GET["operator"];
-                echo $num1;
-                echo " ";
-                echo $operator;
-                echo " ";
-                echo $num2;
-                echo "<br>";
-                echo "<h3>Result</h3>";
-                echo "<br>";
-                //if($operator != "+" || $operator != "-" || $operator != "X" || $operator != "÷"){
-                //   echo "choose an operator";
-                //}
-                if($operator == "+"){
-                    echo $num1 + $num2;
-                }
-                if($operator == "-"){
-                    echo $num1 - $num2;
-                }
-                if($operator == "X"){
-                    echo $num1 * $num2;
-                }
-                if($operator == "÷"){
-                    echo $num1 / $num2;
-                }
-            }
-        ?>
     </article>
 </div>
-
 <?php
 require_once('templates/footer.php');

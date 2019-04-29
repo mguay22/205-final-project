@@ -55,12 +55,19 @@ class Bill
     }
 
     private function emailStandardUsers($auth) {
+        require_once(dirname(__DIR__) . '/htmlEmail.php');
+
         $users = $auth->getUsersByAddressId();
-        $msg = "A new bill has been created for your household. Visit the dashboard to view it.";
+
+        $msg = $message;
+
+        $headers = "From: Bill Buddy <jhchilds@uvm.edu>\r\n";
+        $headers .= "MIME-Version: 1.0\r\n";
+        $headers .= "Content-Type: text/html; charset=ISO-8859-1\r\n";
 
         for ($i = 0; $i < sizeof($users); $i++) {
             $currentEmail = $users[$i]["email"];
-            mail($currentEmail, "New Bill", $msg);
+            mail($currentEmail, "New Bill", $msg, $headers);
         }
     }
 
@@ -123,7 +130,7 @@ class Bill
             $error = '';
             $errorHash = $validator->GetErrors();
             foreach ($errorHash as $inputName => $inputError) {
-                $error .= $inputName . ':' . $inputError . "\n";
+                $error .= "<p>". $inputError . "</p>";
             }
 
             $this->handleError($error);

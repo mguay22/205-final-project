@@ -1,6 +1,7 @@
 const registerForm = document.getElementById("register");
 const loginForm = document.getElementById("login");
 const addressForm = document.getElementById("new-address");
+const addBillForm = document.getElementById("bill");
 let formValidator;
 
 if (registerForm) {
@@ -18,7 +19,16 @@ if (registerForm) {
     formValidator.EnableMsgsTogether();
     formValidator.addValidation("username", "req", "Please provide a username");
     formValidator.addValidation("password", "req", "Please provide a password");
-} else if (addressForm) {
+}
+// else if (addBillForm){
+//     formValidator = new Validator("bill");
+//     formValidator.EnableOnPageErrorDisplay();
+//     formValidator.EnableMsgsTogether();
+//     formValidator.addValidation("type", "req", "Please select the bill type");
+//     formValidator.addValidation("dueDate", "req", "Please select a due date");
+//     formValidator.addValidation("amount", "req", "Please select an amount");
+// }
+else if (addressForm) {
     formValidator = new Validator("new-address");
     formValidator.EnableOnPageErrorDisplay();
     formValidator.EnableMsgsTogether();
@@ -27,6 +37,8 @@ if (registerForm) {
     formValidator.addValidation("city", "req", "Please provide a city");
     formValidator.addValidation("state", "req", "Please provide a state");
 }
+
+
 
 const existingHouseholdButton = document.getElementById('existing-household');
 const householdCodeForm = document.getElementById('household-code-form');
@@ -60,9 +72,11 @@ $(document).ready(function() {
 
     if (page === 'dashboard.php') {
         $('.dashboard').toggleClass('active');
-    } else if (page === 'addBill.php') {
+    }
+    else if (page === 'addBill.php') {
         $('.add-bill').toggleClass('active');
-    } else {
+    }
+    else {
         $('.settings').toggleClass('active');
     }
 

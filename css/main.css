@@ -162,3 +162,38 @@ p,
 legend {
     color: #a9afbbd1;
 }
+
+/**
+addBill page
+**/
+
+article#addBill h2.cal {
+    margin-top: 3em;
+}
+
+article#addBill form {
+    border: solid purple;
+    padding-left: 3em;
+    padding-right: 3em;
+}
+
+article#addBill fieldset.button {
+    margin-bottom: 2em;
+    margin-top: 2em;
+}
+
+input#btnSubmit {
+    width: 100%;
+}
+
+input#btnResult{
+    width: 100%;
+}
+
+div#operator {
+    text-align: center;
+}
+
+article#addBill .col-sm-10 {
+    padding-top: 1em;
+}
