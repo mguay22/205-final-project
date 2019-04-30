@@ -23,7 +23,7 @@ if (isset($_POST['addressId'])) {
 ?>
 
 <div class="card">
-    <article class="card-body" style="width: 800px; margin: 0 auto;">
+    <article class="card-body">
         <div class="row text-center">
             <div class="col-md-12">
                 <h3 style="margin-bottom: 30px;">Are you registering as a new user, or with an existing household?</h3>
